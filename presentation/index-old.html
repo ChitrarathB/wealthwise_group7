@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WealthWise - Personal Finance Advisory Agent</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-content title-slide">
+                <div class="title-header">
+                    <div class="logo-large">W</div>
+                    <h1>WealthWise</h1>
+                    <p class="subtitle">Personal Finance / Insurance Advisory Agent</p>
+                </div>
+                <div class="team-info">
+                    <h3>Group 7</h3>
+                    <div class="team-members">
+                        <div class="member">Harshit AGARWAL (A0315374E)</div>
+                        <div class="member">Chitrarath BHATTACHARJEE (A0315514M)</div>
+                        <div class="member">Jia Hui GAN (A0260540R)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Overview -->
+        <div class="slide" id="slide-2">
+            <div class="slide-content">
+                <h1>Overview</h1>
+                <div class="overview-grid">
+                    <div class="overview-section">
+                        <h2>What is our project about?</h2>
+                        <ul>
+                            <li>Problem Statement & Personas</li>
+                            <li>Project Aim & Objectives</li>
+                        </ul>
+                    </div>
+                    <div class="overview-section">
+                        <h2>How to achieve the project goals?</h2>
+                        <ul>
+                            <li>Solution Architecture</li>
+                            <li>System Demo</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="demo-preview">
+                    <img src="screenshots/dashboard-overview.png" alt="WealthWise Dashboard" class="demo-image">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Problem Statement -->
+        <div class="slide" id="slide-3">
+            <div class="slide-content">
+                <h1>Problem Statement & Market Need</h1>
+                <div class="problem-grid">
+                    <div class="problem-section">
+                        <h2>Current Challenges</h2>
+                        <div class="challenge-list">
+                            <div class="challenge-item">
+                                <div class="challenge-icon">💰</div>
+                                <div class="challenge-text">
+                                    <h3>Financial Literacy Gap</h3>
+                                    <p>Many Singaporeans struggle to understand complex financial products and long-term planning implications</p>
+                                </div>
+                            </div>
+                            <div class="challenge-item">
+                                <div class="challenge-icon">⏰</div>
+                                <div class="challenge-text">
+                                    <h3>Time Constraints</h3>
+                                    <p>Busy professionals find it difficult to schedule in-person financial consultations during working hours</p>
+                                </div>
+                            </div>
+                            <div class="challenge-item">
+                                <div class="challenge-icon">📊</div>
+                                <div class="challenge-text">
+                                    <h3>Scenario Visualization</h3>
+                                    <p>Hard to visualize long-term financial trade-offs and understand impact of life events on finances</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="solution-section">
+                        <h2>Our Solution Approach</h2>
+                        <div class="solution-highlights">
+                            <div class="solution-item">
+                                <span class="solution-number">1</span>
+                                <div>
+                                    <h3>AI-Powered Voice Agent</h3>
+                                    <p>Natural conversation interface that makes financial planning accessible and engaging</p>
+                                </div>
+                            </div>
+                            <div class="solution-item">
+                                <span class="solution-number">2</span>
+                                <div>
+                                    <h3>Real-time Scenario Modeling</h3>
+                                    <p>Dynamic simulations showing impact of life events on financial goals</p>
+                                </div>
+                            </div>
+                            <div class="solution-item">
+                                <span class="solution-number">3</span>
+                                <div>
+                                    <h3>Singapore-Focused Insights</h3>
+                                    <p>Tailored recommendations using local financial products and regulations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Persona 1 - Customer -->
+        <div class="slide" id="slide-4">
+            <div class="slide-content">
+                <h1>Persona 1 of 2: Customer</h1>
+                <div class="persona-section">
+                    <div class="persona-profile">
+                        <div class="persona-header">
+                            <div class="persona-avatar">👨‍👩‍👧‍👦</div>
+                            <div class="persona-info">
+                                <h2>The Chen Family</h2>
+                                <p class="persona-subtitle">Young Professional Family</p>
+                            </div>
+                        </div>
+                        <div class="persona-details">
+                            <div class="persona-detail">
+                                <strong>Jonathan:</strong> 35, IT Manager – SGD 7,200/month
+                            </div>
+                            <div class="persona-detail">
+                                <strong>Brenda:</strong> 34, HR Executive – SGD 5,800/month
+                            </div>
+                            <div class="persona-detail">
+                                <strong>Housing:</strong> Recently bought a 4-room BTO flat
+                            </div>
+                        </div>
+                        <div class="persona-commitments">
+                            <h3>Monthly Commitments</h3>
+                            <div class="commitment-grid">
+                                <div class="commitment-item">Mortgage: SGD 1,700</div>
+                                <div class="commitment-item">Childcare: SGD 1,200</div>
+                                <div class="commitment-item">Insurance: SGD 600</div>
+                                <div class="commitment-item">Savings: SGD 1,000</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="persona-needs">
+                        <div class="needs-section">
+                            <h3>🎯 Goals</h3>
+                            <ul>
+                                <li>Build education fund for their 4-year-old son</li>
+                                <li>Maintain moderate lifestyle while paying off HDB loan</li>
+                                <li>Plan for retirement via investments</li>
+                                <li>Understand optimal insurance coverage for family</li>
+                            </ul>
+                        </div>
+                        <div class="needs-section">
+                            <h3>😰 Pain Points</h3>
+                            <ul>
+                                <li>Struggles to visualize long-term trade-offs</li>
+                                <li>Hard to find time for in-person consultations</li>
+                                <li>Worries about not saving "enough" or "the right way"</li>
+                                <li>Lacks contingency strategies for financial shocks</li>
+                            </ul>
+                        </div>
+                        <div class="needs-section">
+                            <h3>✅ Why WealthWise Helps</h3>
+                            <ul>
+                                <li>Uses real-world data to forecast scenarios</li>
+                                <li>Provides tailored insights based on profile</li>
+                                <li>Offers guidance on trade-offs for unforeseen events</li>
+                                <li>Enables rational rather than emotional decisions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Persona 2 - Financial Advisor -->
+        <div class="slide" id="slide-5">
+            <div class="slide-content">
+                <h1>Persona 2 of 2: Financial Advisor</h1>
+                <div class="persona-section">
+                    <div class="persona-profile">
+                        <div class="persona-header">
+                            <div class="persona-avatar">👨‍💼</div>
+                            <div class="persona-info">
+                                <h2>Professional Financial Advisor</h2>
+                                <p class="persona-subtitle">Mid-sized Advisory Firm</p>
+                            </div>
+                        </div>
+                        <div class="advisor-details">
+                            <div class="advisor-focus">
+                                <h3>Client Focus</h3>
+                                <p>Emerging affluent, millennials, dual-income couples</p>
+                            </div>
+                            <div class="advisor-expertise">
+                                <h3>Expertise Areas</h3>
+                                <div class="expertise-grid">
+                                    <div class="expertise-item">📈 Investment Portfolios</div>
+                                    <div class="expertise-item">🛡️ Insurance Structuring</div>
+                                    <div class="expertise-item">📋 Estate Planning</div>
+                                    <div class="expertise-item">💻 Digital Client Tools</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="persona-needs">
+                        <div class="needs-section">
+                            <h3>😤 Pain Points</h3>
+                            <ul>
+                                <li>Clients expect more digital-first, self-service tools</li>
+                                <li>Hard to explain long-term trade-offs with dynamic scenarios</li>
+                                <li>Time-consuming to prepare personalized financial models</li>
+                                <li>Difficulty demonstrating value with factual data</li>
+                            </ul>
+                        </div>
+                        <div class="needs-section">
+                            <h3>✅ Why WealthWise is Useful</h3>
+                            <ul>
+                                <li>Client-facing tool to demonstrate financial outcomes</li>
+                                <li>Interprets emotional cues for tailored guidance</li>
+                                <li>Saves time on proposal generation</li>
+                                <li>Builds trust through transparent simulations</li>
+                                <li>Enhances overall advisory experience</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Project Aim & Objectives -->
+        <div class="slide" id="slide-6">
+            <div class="slide-content">
+                <h1>Project Aim & Objectives</h1>
+                <div class="aim-section">
+                    <div class="project-aim">
+                        <h2>🎯 Project Aim</h2>
+                        <div class="aim-description">
+                            <p>To develop an <strong>AI-powered personal finance simulator</strong> that helps users understand, manage, and improve their financial decisions by:</p>
+                            <div class="aim-points">
+                                <div class="aim-point">
+                                    <span class="aim-icon">🎯</span>
+                                    <span>Simulating realistic financial scenarios and outcomes</span>
+                                </div>
+                                <div class="aim-point">
+                                    <span class="aim-icon">🤖</span>
+                                    <span>Integrating conversational voice bot for real-world advisory experiences</span>
+                                </div>
+                                <div class="aim-point">
+                                    <span class="aim-icon">📊</span>
+                                    <span>Delivering personalized, data-driven insights tailored to individual profiles</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="objectives-grid">
+                    <div class="objective-card">
+                        <div class="objective-icon">🔍</div>
+                        <h3>Uncover Hidden Financial Patterns</h3>
+                        <p>Apply pattern recognition and clustering to identify spending trends, behavioral triggers, and recurring risks. Segment customers into profiles.</p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-icon">💡</div>
+                        <h3>Generate Actionable Insights</h3>
+                        <p>Convert raw data into clear, user-friendly insights that guide effective budgeting, saving, and investing decisions.</p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-icon">🤖</div>
+                        <h3>Integrate AI for Personalization</h3>
+                        <p>Use AI/ML models to analyze behavior and financial data. Multi-LLM voice agent maps users to segments for personalized guidance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Project Objectives Continued -->
+        <div class="slide" id="slide-7">
+            <div class="slide-content">
+                <h1>Project Objectives (Continued)</h1>
+                <div class="objectives-grid">
+                    <div class="objective-card">
+                        <div class="objective-icon">🎮</div>
+                        <h3>Simulate Real-World Scenarios</h3>
+                        <p>Build dynamic simulations for "what-if" scenarios like job changes, unexpected expenses, and investment choices.</p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-icon">⚡</div>
+                        <h3>Deliver Intelligent Solutions</h3>
+                        <p>Provide personalized forecasts, risk assessments, and goal-tracking. Analyze audio for emotional cues.</p>
+                    </div>
+                    <div class="objective-card">
+                        <div class="objective-icon">📚</div>
+                        <h3>Enhance Financial Literacy</h3>
+                        <p>Help customers learn through simulation. Enable advisors to personalize advice based on emotional cues and build better rapport.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Technical Architecture -->
+        <div class="slide" id="slide-8">
+            <div class="slide-content">
+                <h1>Solution Architecture</h1>
+                <div class="architecture-diagram">
+                    <div class="arch-layer frontend">
+                        <h3>Frontend Layer</h3>
+                        <div class="arch-components">
+                            <span class="component">React Dashboard</span>
+                            <span class="component">Chart.js Visualizations</span>
+                            <span class="component">Web Audio API</span>
+                        </div>
+                    </div>
+                    <div class="arch-layer backend">
+                        <h3>Backend Services</h3>
+                        <div class="arch-components">
+                            <span class="component">Node.js + Express</span>
+                            <span class="component">SQLite Database</span>
+                            <span class="component">Financial Calculations</span>
+                        </div>
+                    </div>
+                    <div class="arch-layer ai">
+                        <h3>AI/ML Layer</h3>
+                        <div class="arch-components">
+                            <span class="component">OpenAI GPT-4</span>
+                            <span class="component">Speech Processing</span>
+                            <span class="component">Sentiment Analysis</span>
+                        </div>
+                    </div>
+                    <div class="arch-layer data">
+                        <h3>Data Sources</h3>
+                        <div class="arch-components">
+                            <span class="component">Singapore Gov Data</span>
+                            <span class="component">Financial Markets</span>
+                            <span class="component">Insurance Products</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Feature Engineering & Data Sources -->
+        <div class="slide" id="slide-9">
+            <div class="slide-content">
+                <h1>Feature Engineering & Data Sources</h1>
+                <div class="data-sources-section">
+                    <div class="data-source-card">
+                        <h3>🏠 Household Income & Trends</h3>
+                        <div class="source-info">
+                            <div class="source-provider">Source: SingStat</div>
+                            <div class="source-description">Median monthly income, income by deciles, changes over time</div>
+                            <div class="source-features">
+                                <strong>Features:</strong> Income consistency, volatility, financial capacity gaps
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-source-card">
+                        <h3>💰 Household Expenditure Survey</h3>
+                        <div class="source-info">
+                            <div class="source-provider">Source: Singapore Government</div>
+                            <div class="source-description">Spending patterns across housing, food, transport categories</div>
+                            <div class="source-features">
+                                <strong>Features:</strong> Spending volatility, discretionary vs non-discretionary ratios
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-source-card">
+                        <h3>📊 National Accounts & GDP</h3>
+                        <div class="source-info">
+                            <div class="source-provider">Source: Data.gov.sg</div>
+                            <div class="source-description">GDP, private consumption, government expenditure, investment data</div>
+                            <div class="source-features">
+                                <strong>Features:</strong> Macro-level benchmarking, trend normalization
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-source-card">
+                        <h3>🏛️ Government Finance & Fiscal</h3>
+                        <div class="source-info">
+                            <div class="source-provider">Source: Ministry of Finance</div>
+                            <div class="source-description">Revenue, expenditure, cash surplus/deficit, tax revenues</div>
+                            <div class="source-features">
+                                <strong>Features:</strong> Policy impact correlation, external risk prediction
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scope-section">
+                    <div class="scope-grid">
+                        <div class="scope-card in-scope">
+                            <h3>✅ In Scope</h3>
+                            <ul>
+                                <li>Official Singapore datasets (Data.gov.sg, SingStat)</li>
+                                <li>Derived features (savings rate, spending ratios)</li>
+                                <li>Synthetic unstructured data (sentiment, tone)</li>
+                                <li>AI/ML modeling (prediction, segmentation)</li>
+                            </ul>
+                        </div>
+                        <div class="scope-card out-scope">
+                            <h3>❌ Out of Scope</h3>
+                            <ul>
+                                <li>Cross-border financial datasets</li>
+                                <li>Real-time market feeds</li>
+                                <li>Real client data (anonymized/synthetic only)</li>
+                                <li>Certified financial advice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Implementation Phases -->
+        <div class="slide" id="slide-10">
+            <div class="slide-content">
+                <h1>Implementation Phases</h1>
+                <div class="phases-container">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎙️</div>
+                        <h3>Voice-First Interface</h3>
+                        <p>Natural conversation with AI financial advisor using advanced speech recognition and synthesis</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Real-time Analytics</h3>
+                        <p>Dynamic financial projections with interactive charts and comprehensive scenario modeling</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🇸🇬</div>
+                        <h3>Singapore-Focused</h3>
+                        <p>Tailored for local context including HDB, CPF, and Singapore financial products</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3>AI-Powered Insights</h3>
+                        <p>Machine learning algorithms provide personalized recommendations and risk assessments</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Modern UX</h3>
+                        <p>Professional dashboard interface with responsive design and intuitive navigation</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Secure & Private</h3>
+                        <p>Bank-level security with encrypted data storage and privacy-first design principles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Implementation Phases -->
+        <div class="slide" id="slide-13">
+            <div class="slide-content">
+                <h1>Implementation Phases</h1>
+                <div class="phases-container">
+                    <div class="phase-card">
+                        <div class="phase-header">
+                            <div class="phase-number">1</div>
+                            <h3>Customer Fact Find</h3>
+                        </div>
+                        <div class="phase-content">
+                            <h4>📋 Data Collection</h4>
+                            <ul>
+                                <li>Get comprehensive data from customer</li>
+                                <li>Create detailed customer profile</li>
+                                <li>Identify missing datasets for follow-up</li>
+                                <li>Focus on income, expenses, assets, liabilities</li>
+                            </ul>
+                            <div class="phase-output">
+                                <strong>Output:</strong> Complete financial profile with current state analysis
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-header">
+                            <div class="phase-number">2</div>
+                            <h3>Life Stage Analysis</h3>
+                        </div>
+                        <div class="phase-content">
+                            <h4>📈 Predictive Modeling</h4>
+                            <ul>
+                                <li>Plot active income, passive income, savings projections</li>
+                                <li>AI models predict expense/income changes annually</li>
+                                <li>Segment customer based on current life stage</li>
+                                <li>Account for expected life changes (marriage, children)</li>
+                            </ul>
+                            <div class="phase-output">
+                                <strong>Output:</strong> 30-year financial trajectory with life stage adjustments
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-header">
+                            <div class="phase-number">3</div>
+                            <h3>Goal Analysis</h3>
+                        </div>
+                        <div class="phase-content">
+                            <h4>🎯 Goal-based Planning</h4>
+                            <ul>
+                                <li>Input customer goals (retirement, education)</li>
+                                <li>Identify protection needs (critical illness, death)</li>
+                                <li>Calculate shortfalls based on goals</li>
+                                <li>Timeline-based event planning</li>
+                            </ul>
+                            <div class="phase-output">
+                                <strong>Output:</strong> Gap analysis with goal-specific recommendations
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-header">
+                            <div class="phase-number">4</div>
+                            <h3>Recommendations</h3>
+                        </div>
+                        <div class="phase-content">
+                            <h4>💡 Intelligent Suggestions</h4>
+                            <ul>
+                                <li>Recommend insurance products based on protection needs</li>
+                                <li>Suggest savings products for wealth shortfalls</li>
+                                <li>Real-time audio transcript with speaker diarization</li>
+                                <li>Sentiment analysis for personalized guidance</li>
+                            </ul>
+                            <div class="phase-output">
+                                <strong>Output:</strong> Personalized product recommendations with emotional insights
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Demo Results -->
+        <div class="slide" id="slide-14">
+            <div class="slide-content">
+                <h1>Demo Results: Sarah Chen Family Profile</h1>
+                <div class="results-section">
+                    <div class="profile-summary">
+                        <h2>Family Profile</h2>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span class="stat-label">Monthly Income</span>
+                                <span class="stat-value">$8,500</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Monthly Expenses</span>
+                                <span class="stat-value">$5,200</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Net Worth</span>
+                                <span class="stat-value">$247,500</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Monthly Surplus</span>
+                                <span class="stat-value">$3,300</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="projections-summary">
+                        <h2>30-Year Projections</h2>
+                        <div class="projection-chart">
+                            <img src="screenshots/projection-summary.png" alt="30-Year Financial Projection" class="chart-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Thank You -->
+        <div class="slide" id="slide-15">
+            <div class="slide-content thank-you-slide">
+                <div class="thank-you-content">
+                    <div class="logo-large">W</div>
+                    <h1>Thank You!</h1>
+                    <p class="closing-message">Questions & Discussion</p>
+                    <div class="team-info">
+                        <h3>Group 7</h3>
+                        <div class="team-members">
+                            <div class="member">Harshit AGARWAL (A0315374E)</div>
+                            <div class="member">Chitrarath BHATTACHARJEE (A0315514M)</div>
+                            <div class="member">Jia Hui GAN (A0260540R)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">❮</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">15</span>
+        </div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">❯</button>
+    </div>
+
+    <!-- Slide Indicators -->
+    <div class="slide-indicators">
+        <span class="indicator active" onclick="currentSlide(1)"></span>
+        <span class="indicator" onclick="currentSlide(2)"></span>
+        <span class="indicator" onclick="currentSlide(3)"></span>
+        <span class="indicator" onclick="currentSlide(4)"></span>
+        <span class="indicator" onclick="currentSlide(5)"></span>
+        <span class="indicator" onclick="currentSlide(6)"></span>
+        <span class="indicator" onclick="currentSlide(7)"></span>
+        <span class="indicator" onclick="currentSlide(8)"></span>
+        <span class="indicator" onclick="currentSlide(9)"></span>
+        <span class="indicator" onclick="currentSlide(10)"></span>
+        <span class="indicator" onclick="currentSlide(11)"></span>
+        <span class="indicator" onclick="currentSlide(12)"></span>
+        <span class="indicator" onclick="currentSlide(13)"></span>
+        <span class="indicator" onclick="currentSlide(14)"></span>
+        <span class="indicator" onclick="currentSlide(15)"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Profile Extraction</title>
+</head>
+<body>
+    <h1>Profile Extraction Test</h1>
+    <div id="test-fields">
+        <input id="input_name" placeholder="Name">
+        <input id="input_age" placeholder="Age">
+        <input id="input_gender" placeholder="Gender">
+        <div id="results"></div>
+    </div>
+
+    <script>
+    // Test function to extract profile
+    async function testProfileExtraction() {
+        const transcript = "ME: Hey Sarah, it's great to see you again. How have you been? Customer: It's a little better now, thankfully. ME: Alright, let's start simple — how old are you? Customer: I'm 29";
+        
+        try {
+            console.log('Testing profile extraction with:', transcript);
+            
+            const response = await fetch('/api/extract-detailed-profile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    transcript: transcript
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            console.log('API Response:', result);
+            
+            if (result.success && result.profile) {
+                // Test field population
+                const personalDetails = result.profile['Personal Details'] || {};
+                
+                const nameField = document.getElementById('input_name');
+                const ageField = document.getElementById('input_age');
+                const genderField = document.getElementById('input_gender');
+                
+                if (nameField) nameField.value = personalDetails.Name || '';
+                if (ageField) ageField.value = personalDetails.Age || '';
+                if (genderField) genderField.value = personalDetails.Gender || '';
+                
+                document.getElementById('results').innerHTML = `
+                    <h3>Profile Extracted:</h3>
+                    <p>Name: ${personalDetails.Name}</p>
+                    <p>Age: ${personalDetails.Age}</p>
+                    <p>Gender: ${personalDetails.Gender}</p>
+                `;
+                
+                console.log('✅ Profile extraction and population successful');
+            } else {
+                console.log('❌ No profile data in response');
+            }
+            
+        } catch (error) {
+            console.error('❌ Error:', error);
+            document.getElementById('results').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+        }
+    }
+    
+    // Run test when page loads
+    window.addEventListener('load', testProfileExtraction);
+    </script>
+</body>
+</html>

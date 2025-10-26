@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WealthWise — Financial Advisor Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="brand">
+                <div class="logo">W</div>
+                <div class="brand-text">
+                    <h1>WealthWise</h1>
+                    <span>Financial Advisor Dashboard</span>
+                </div>
+            </div>
+            <div class="advisor-info">
+                <div class="advisor-profile">
+                    <div class="advisor-avatar">👨‍💼</div>
+                    <div class="advisor-details">
+                        <span class="advisor-name">Michael Tan</span>
+                        <span class="advisor-role">Senior Financial Advisor</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <div class="nav-item active" data-tab="clients">
+                        <span class="nav-icon">👥</span>
+                        <span>Client Portfolio</span>
+                    </div>
+                    <div class="nav-item" data-tab="session">
+                        <span class="nav-icon">🎙️</span>
+                        <span>Live Session</span>
+                    </div>
+                    <div class="nav-item" data-tab="analytics">
+                        <span class="nav-icon">📊</span>
+                        <span>Analytics</span>
+                    </div>
+                    <div class="nav-item" data-tab="recommendations">
+                        <span class="nav-icon">💡</span>
+                        <span>Recommendations</span>
+                    </div>
+                </nav>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <h3>Today's Overview</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Active Clients</span>
+                        <span class="stat-value">24</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sessions Today</span>
+                        <span class="stat-value">3</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Recommendations</span>
+                        <span class="stat-value">12</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content-area">
+                <!-- Client Portfolio Tab -->
+                <div class="tab-content active" id="clients-tab">
+                    <div class="tab-header">
+                        <h2>Client Portfolio</h2>
+                        <button class="btn-primary" onclick="startNewSession()">
+                            <span>🎙️</span> Start New Session
+                        </button>
+                    </div>
+
+                    <div class="clients-grid">
+                        <!-- Featured Client -->
+                        <div class="client-card featured" onclick="selectClient('sarah-chen')">
+                            <div class="client-header">
+                                <div class="client-avatar">👩‍👧‍👦</div>
+                                <div class="client-info">
+                                    <h3>Sarah Chen Family</h3>
+                                    <span class="client-status complete">Profile Complete</span>
+                                </div>
+                                <div class="client-actions">
+                                    <button class="btn-icon" title="View Profile">👁️</button>
+                                    <button class="btn-icon" title="Start Session">🎙️</button>
+                                </div>
+                            </div>
+                            <div class="client-summary">
+                                <div class="summary-item">
+                                    <span class="label">Monthly Income</span>
+                                    <span class="value">$8,500</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="label">Net Worth</span>
+                                    <span class="value">$247,500</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="label">Risk Profile</span>
+                                    <span class="value">Moderate</span>
+                                </div>
+                            </div>
+                            <div class="client-alerts">
+                                <div class="alert recommendation">
+                                    <span class="alert-icon">💡</span>
+                                    <span>3 new recommendations available</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Other Clients -->
+                        <div class="client-card" onclick="selectClient('jonathan-lim')">
+                            <div class="client-header">
+                                <div class="client-avatar">👨‍👩‍👧</div>
+                                <div class="client-info">
+                                    <h3>Jonathan Lim</h3>
+                                    <span class="client-status in-progress">In Progress</span>
+                                </div>
+                                <div class="client-actions">
+                                    <button class="btn-icon" title="Continue Session">▶️</button>
+                                </div>
+                            </div>
+                            <div class="client-summary">
+                                <div class="summary-item">
+                                    <span class="label">Monthly Income</span>
+                                    <span class="value">$12,000</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="label">Progress</span>
+                                    <span class="value">60%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="client-card" onclick="selectClient('priya-sharma')">
+                            <div class="client-header">
+                                <div class="client-avatar">👩‍💼</div>
+                                <div class="client-info">
+                                    <h3>Priya Sharma</h3>
+                                    <span class="client-status scheduled">Scheduled</span>
+                                </div>
+                                <div class="client-actions">
+                                    <button class="btn-icon" title="Prepare Session">📋</button>
+                                </div>
+                            </div>
+                            <div class="client-summary">
+                                <div class="summary-item">
+                                    <span class="label">Session</span>
+                                    <span class="value">Tomorrow 2PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Session Tab -->
+                <div class="tab-content" id="session-tab">
+                    <div class="tab-header">
+                        <h2>Live Session: Sarah Chen Family</h2>
+                        <div class="session-controls">
+                            <button class="btn-secondary" onclick="pauseSession()">⏸️ Pause</button>
+                            <button class="btn-danger" onclick="endSession()">⏹️ End Session</button>
+                        </div>
+                    </div>
+
+                    <div class="session-layout">
+                        <!-- Real-time Profile Building -->
+                        <div class="session-panel profile-panel">
+                            <h3>Real-time Profile Building</h3>
+                            <div class="profile-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-text">Profile Complete (100%)</span>
+                            </div>
+
+                            <div class="profile-sections">
+                                <div class="profile-section">
+                                    <h4>Basic Information</h4>
+                                    <div class="profile-fields">
+                                        <div class="field-item">
+                                            <span class="field-label">Household Size:</span>
+                                            <span class="field-value">3 members</span>
+                                            <span class="field-status">✅</span>
+                                        </div>
+                                        <div class="field-item">
+                                            <span class="field-label">Monthly Income:</span>
+                                            <span class="field-value">$8,500</span>
+                                            <span class="field-status">✅</span>
+                                        </div>
+                                        <div class="field-item">
+                                            <span class="field-label">Housing Type:</span>
+                                            <span class="field-value">4-room HDB</span>
+                                            <span class="field-status">✅</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="profile-section">
+                                    <h4>Financial Details</h4>
+                                    <div class="profile-fields">
+                                        <div class="field-item">
+                                            <span class="field-label">Monthly Expenses:</span>
+                                            <span class="field-value">$5,200</span>
+                                            <span class="field-status">✅</span>
+                                        </div>
+                                        <div class="field-item">
+                                            <span class="field-label">Current Savings:</span>
+                                            <span class="field-value">$45,000</span>
+                                            <span class="field-status">✅</span>
+                                        </div>
+                                        <div class="field-item">
+                                            <span class="field-label">Risk Tolerance:</span>
+                                            <span class="field-value">Moderate</span>
+                                            <span class="field-status">✅</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conversation Monitor -->
+                        <div class="session-panel conversation-panel">
+                            <h3>Conversation Monitor</h3>
+                            <div class="conversation-feed">
+                                <div class="message advisor">
+                                    <div class="message-header">
+                                        <span class="sender">Advisor</span>
+                                        <span class="timestamp">2:45 PM</span>
+                                    </div>
+                                    <div class="message-content">
+                                        "Let's review your financial projections. Based on your current savings rate..."
+                                    </div>
+                                </div>
+                                <div class="message client">
+                                    <div class="message-header">
+                                        <span class="sender">Sarah</span>
+                                        <span class="timestamp">2:46 PM</span>
+                                        <span class="sentiment positive">😊 Positive</span>
+                                    </div>
+                                    <div class="message-content">
+                                        "That looks really promising! I'm excited to see how we can optimize our savings for Emma's education."
+                                    </div>
+                                </div>
+                                <div class="message system">
+                                    <div class="message-header">
+                                        <span class="sender">System</span>
+                                        <span class="timestamp">2:46 PM</span>
+                                    </div>
+                                    <div class="message-content">
+                                        <strong>Insight:</strong> Client shows high engagement and optimism about education planning. Consider presenting education-focused investment options.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Analytics -->
+                    <div class="session-analytics">
+                        <div class="analytics-card">
+                            <h4>Session Insights</h4>
+                            <div class="insights-grid">
+                                <div class="insight-item">
+                                    <span class="insight-icon">😊</span>
+                                    <div class="insight-text">
+                                        <span class="insight-label">Client Sentiment</span>
+                                        <span class="insight-value positive">Positive</span>
+                                    </div>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="insight-icon">🎯</span>
+                                    <div class="insight-text">
+                                        <span class="insight-label">Engagement Level</span>
+                                        <span class="insight-value high">High</span>
+                                    </div>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="insight-icon">💡</span>
+                                    <div class="insight-text">
+                                        <span class="insight-label">Key Interest</span>
+                                        <span class="insight-value">Education Planning</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div class="tab-content" id="analytics-tab">
+                    <div class="tab-header">
+                        <h2>Client Analytics: Sarah Chen Family</h2>
+                        <div class="analytics-controls">
+                            <select class="select-input" onchange="changeAnalyticsView(this.value)">
+                                <option value="overview">Overview</option>
+                                <option value="projections">30-Year Projections</option>
+                                <option value="scenarios">Scenario Analysis</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="analytics-dashboard">
+                        <!-- Key Metrics -->
+                        <div class="metrics-row">
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <span class="metric-icon">💰</span>
+                                    <span class="metric-label">Current Net Worth</span>
+                                </div>
+                                <div class="metric-value">$247,500</div>
+                                <div class="metric-change positive">+12.5% YoY</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <span class="metric-icon">📈</span>
+                                    <span class="metric-label">Monthly Surplus</span>
+                                </div>
+                                <div class="metric-value">$3,300</div>
+                                <div class="metric-change positive">+8.2% vs target</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <span class="metric-icon">🎯</span>
+                                    <span class="metric-label">Savings Rate</span>
+                                </div>
+                                <div class="metric-value">38.8%</div>
+                                <div class="metric-change positive">Above average</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <span class="metric-icon">🛡️</span>
+                                    <span class="metric-label">Insurance Coverage</span>
+                                </div>
+                                <div class="metric-value">$850K</div>
+                                <div class="metric-change warning">Needs review</div>
+                            </div>
+                        </div>
+
+                        <!-- Charts -->
+                        <div class="charts-section">
+                            <div class="chart-card">
+                                <h3>Net Worth Projection</h3>
+                                <canvas id="advisorNetWorthChart"></canvas>
+                            </div>
+                            <div class="chart-card">
+                                <h3>Cash Flow Analysis</h3>
+                                <canvas id="advisorCashFlowChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations Tab -->
+                <div class="tab-content" id="recommendations-tab">
+                    <div class="tab-header">
+                        <h2>AI-Powered Recommendations</h2>
+                        <div class="recommendation-filters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="insurance">Insurance</button>
+                            <button class="filter-btn" data-filter="investment">Investment</button>
+                            <button class="filter-btn" data-filter="savings">Savings</button>
+                        </div>
+                    </div>
+
+                    <div class="recommendations-grid">
+                        <div class="recommendation-card priority-high">
+                            <div class="recommendation-header">
+                                <div class="recommendation-icon">🛡️</div>
+                                <div class="recommendation-info">
+                                    <h3>Life Insurance Gap</h3>
+                                    <span class="recommendation-priority high">High Priority</span>
+                                </div>
+                                <div class="recommendation-confidence">
+                                    <span class="confidence-score">95%</span>
+                                    <span class="confidence-label">Confidence</span>
+                                </div>
+                            </div>
+                            <div class="recommendation-content">
+                                <p><strong>Current Coverage:</strong> $850,000</p>
+                                <p><strong>Recommended:</strong> $1,200,000</p>
+                                <p><strong>Gap:</strong> $350,000</p>
+                                <div class="recommendation-reasoning">
+                                    <h4>AI Reasoning:</h4>
+                                    <ul>
+                                        <li>Current coverage insufficient for mortgage and child's education</li>
+                                        <li>Based on 10x annual income rule and family obligations</li>
+                                        <li>Consider term life insurance for cost-effectiveness</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="recommendation-actions">
+                                <button class="btn-primary">Present to Client</button>
+                                <button class="btn-secondary">View Products</button>
+                            </div>
+                        </div>
+
+                        <div class="recommendation-card priority-medium">
+                            <div class="recommendation-header">
+                                <div class="recommendation-icon">📚</div>
+                                <div class="recommendation-info">
+                                    <h3>Education Savings Plan</h3>
+                                    <span class="recommendation-priority medium">Medium Priority</span>
+                                </div>
+                                <div class="recommendation-confidence">
+                                    <span class="confidence-score">88%</span>
+                                    <span class="confidence-label">Confidence</span>
+                                </div>
+                            </div>
+                            <div class="recommendation-content">
+                                <p><strong>Goal:</strong> $150,000 by 2040</p>
+                                <p><strong>Monthly Required:</strong> $650</p>
+                                <p><strong>Current Allocation:</strong> $400</p>
+                                <div class="recommendation-reasoning">
+                                    <h4>AI Reasoning:</h4>
+                                    <ul>
+                                        <li>University costs projected at $150K in 16 years</li>
+                                        <li>Current savings rate insufficient by $250/month</li>
+                                        <li>Consider education endowment or investment-linked policies</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="recommendation-actions">
+                                <button class="btn-primary">Present to Client</button>
+                                <button class="btn-secondary">Adjust Plan</button>
+                            </div>
+                        </div>
+
+                        <div class="recommendation-card priority-low">
+                            <div class="recommendation-header">
+                                <div class="recommendation-icon">💼</div>
+                                <div class="recommendation-info">
+                                    <h3>Portfolio Diversification</h3>
+                                    <span class="recommendation-priority low">Low Priority</span>
+                                </div>
+                                <div class="recommendation-confidence">
+                                    <span class="confidence-score">72%</span>
+                                    <span class="confidence-label">Confidence</span>
+                                </div>
+                            </div>
+                            <div class="recommendation-content">
+                                <p><strong>Current Allocation:</strong> 70% Stocks, 30% Bonds</p>
+                                <p><strong>Recommended:</strong> Add REITs and International exposure</p>
+                                <div class="recommendation-reasoning">
+                                    <h4>AI Reasoning:</h4>
+                                    <ul>
+                                        <li>Portfolio concentrated in Singapore equities</li>
+                                        <li>Consider 10-15% REIT allocation for income</li>
+                                        <li>Add international diversification for risk reduction</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="recommendation-actions">
+                                <button class="btn-primary">Present to Client</button>
+                                <button class="btn-secondary">Research Options</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

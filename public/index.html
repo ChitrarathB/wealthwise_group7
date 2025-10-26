@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WealthWise — AI Financial Advisor</title>
+        <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+        <div class="progress"><div id="progressBar" class="bar" style="width: 0%"></div></div>
+        
+        <div class="app">
+                <div class="dashboard" style="height: 100vh; display: flex;">
+                        <aside class="sidebar" style="display: flex; flex-direction: column; max-height: 100vh; overflow: hidden;">
+                                <!-- WealthWise Brand (Top of Sidebar) -->
+                                <div style="background: white; padding: 10px; border-bottom: 2px solid #e2e8f0; display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+                                        <div style="background: #dc2626; width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">W</div>
+                                        <div>
+                                                <h1 style="margin: 0; font-size: 13px; font-weight: 700; color: #1e293b;">WealthWise</h1>
+                                                <span style="font-size: 8px; color: #64748b;">Your AI Financial Advisor</span>
+                                        </div>
+                                </div>
+                                
+                                <!-- Chat Section (Below Brand) -->
+                                <div id="voice_assistant_section" class="chat-container compact" style="display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0; max-height: 360px; border: 1px solid #e2e8f0; border-radius: 6px; margin: 6px; background: white;">
+                                        <div class="chat-header" style="padding: 6px 8px; border-bottom: 1px solid #e2e8f0; background: #f8fafc; display: flex; justify-content: space-between; align-items: center;">
+                                                <!-- Audio Player (moved to left side) -->
+                                                <div id="audioPlayer" style="display: flex; align-items: center; gap: 3px;">
+                                                        <audio id="agentAudio" preload="metadata" controls style="display: none;">
+                                                                <source src="/agent_conv.wav" type="audio/wav">
+                                                                <source src="/agent_conv.wav" type="audio/mpeg">
+                                                                Your browser does not support the audio element.
+                                                        </audio>
+                                                        
+                                                        <!-- Control Buttons -->
+                                                        <button id="playBtn" style="background: #10b981; color: white; border: none; border-radius: 2px; width: 18px; height: 14px; font-size: 7px; cursor: pointer; display: flex; align-items: center; justify-content: center;">▶</button>
+                                                        <button id="pauseBtn" style="background: #f59e0b; color: white; border: none; border-radius: 2px; width: 18px; height: 14px; font-size: 7px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⏸</button>
+                                                        <button id="stopBtn" style="background: #ef4444; color: white; border: none; border-radius: 2px; width: 18px; height: 14px; font-size: 7px; cursor: pointer; display: flex; align-items: center; justify-content: center;">⏹</button>
+                                                        
+                                                        <!-- Wave Animation -->
+                                                        <div id="waveAnimation" style="display: flex; align-items: center; gap: 1px; margin-left: 3px;">
+                                                                <div class="wave-bar" style="width: 1.5px; height: 3px; background: #dc2626; border-radius: 1px;"></div>
+                                                                <div class="wave-bar" style="width: 1.5px; height: 4px; background: #dc2626; border-radius: 1px;"></div>
+                                                                <div class="wave-bar" style="width: 1.5px; height: 6px; background: #dc2626; border-radius: 1px;"></div>
+                                                                <div class="wave-bar" style="width: 1.5px; height: 4px; background: #dc2626; border-radius: 1px;"></div>
+                                                                <div class="wave-bar" style="width: 1.5px; height: 3px; background: #dc2626; border-radius: 1px;"></div>
+                                                                <div class="wave-bar" style="width: 1.5px; height: 5px; background: #dc2626; border-radius: 1px;"></div>
+                                                        </div>
+                                                        
+                                                        <!-- Time Display -->
+                                                        <span id="timeDisplay" style="font-size: 6px; color: #64748b; margin-left: 4px;">00:00</span>
+                                                </div>
+                                                
+                                                <!-- Right side (empty for balance) -->
+                                                <div style="display: flex; align-items: center;">
+                                                        <!-- Could add status indicators here in the future -->
+                                                </div>
+                                        </div>
+                                        <div class="messages-container" style="height: 360px; overflow-y: auto; padding: 6px;">
+                                                <div id="messages" class="messages"></div>
+                                        </div>
+                                </div>
+                                
+                                <!-- Product Recommendation (Below Voice Assistant) -->
+                                <div id="product_recommendation_section" style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0; margin: 0 6px 6px 6px; flex: 1; min-height: 0; max-height: 260px; overflow-y: auto; transition: all 0.3s ease;">
+                                        <h3 style="margin: 0 0 6px 0; font-size: 10px; font-weight: 600; color: #475569;">🎯 Smart Recommendations</h3>
+                                        <div id="product_recommendation" style="font-size: 8px; color: #64748b;">
+                                                <div style="background: #f9fafb; padding: 8px; border-radius: 4px; text-align: center;">
+                                                        <div style="font-weight: 600; color: #6b7280; margin-bottom: 4px; font-size: 8px;">🤖 AI-Powered Matching</div>
+                                                        <div style="font-size: 7px; color: #9ca3af;">Personalized product recommendations will appear based on your financial profile</div>
+                                                </div>
+                                        </div>
+                                </div>
+                        </aside>
+
+                        <main class="main-content" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
+                                <!-- Top Section: Four Profile Sections -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; padding: 8px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; flex-shrink: 0;">
+                                        <!-- Personal Information -->
+                                        <div id="profile_section" style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                                <h2 style="margin: 0 0 6px 0; font-size: 10px; font-weight: 600; color: #1e293b; text-transform: uppercase;">Personal Information</h2>
+                                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Name</label>
+                                                                <input type="text" id="input_name" placeholder="Enter name" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Current Age</label>
+                                                                <input type="number" id="input_age" placeholder="Age" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Marital Status</label>
+                                                                <select id="input_marital_status" style="height: 18px; font-size: 8px; padding: 1px; border: 1px solid #e2e8f0; border-radius: 3px;">
+                                                                        <option value="">Select</option>
+                                                                        <option value="Single">Single</option>
+                                                                        <option value="Married">Married</option>
+                                                                        <option value="Divorced">Divorced</option>
+                                                                </select>
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Gender</label>
+                                                                <select id="input_gender" style="height: 18px; font-size: 8px; padding: 1px; border: 1px solid #e2e8f0; border-radius: 3px;">
+                                                                        <option value="">Select</option>
+                                                                        <option value="Male">Male</option>
+                                                                        <option value="Female">Female</option>
+                                                                </select>
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Dependents</label>
+                                                                <input type="number" id="input_dependents_count" placeholder="0" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        
+                                        <!-- Financial Summary -->
+                                        <div id="financial_summary_section" style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                                <h2 style="margin: 0 0 6px 0; font-size: 10px; font-weight: 600; color: #1e293b; text-transform: uppercase;">Financial Summary</h2>
+                                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Active Income Monthly</label>
+                                                                <input type="number" id="input_active_income" placeholder="Monthly income" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Active Income Growth (%)</label>
+                                                                <input type="number" id="input_active_income_growth" placeholder="%" step="0.1" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Passive Income</label>
+                                                                <input type="number" id="input_passive_income" placeholder="Amount" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Passive Income End Age</label>
+                                                                <input type="number" id="input_passive_income_end_age" placeholder="Age" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Current Bank Saving</label>
+                                                                <input type="number" id="input_current_bank_saving" placeholder="Amount" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Monthly Bank Saving</label>
+                                                                <input type="number" id="input_monthly_bank_saving" placeholder="Amount" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Monthly Expense</label>
+                                                                <input type="number" id="input_monthly_expense" placeholder="Amount" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Loans Monthly EMI</label>
+                                                                <input type="number" id="input_loans_monthly_emi" placeholder="Amount" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                        <div style="display: flex; flex-direction: column; grid-column: 1 / -1;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Loans End Age</label>
+                                                                <input type="number" id="input_loans_end_age" placeholder="Age" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        
+                                        <!-- Life Event -->
+                                        <div id="life_event_section" style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                                <h2 style="margin: 0 0 6px 0; font-size: 10px; font-weight: 600; color: #1e293b; text-transform: uppercase;">Life Event</h2>
+                                                <div id="life_events_container" style="display: flex; flex-direction: column; gap: 4px; max-height: 100px; overflow-y: auto;">
+                                                        <!-- Life events will be added here dynamically -->
+                                                </div>
+                                                <button id="add_life_event_btn" style="margin-top: 4px; padding: 3px 6px; background: #dc2626; color: white; border: none; border-radius: 3px; font-size: 7px; cursor: pointer; font-weight: 500; width: 100%;">
+                                                        + Add Life Event
+                                                </button>
+                                        </div>
+                                        
+                                        <!-- Scenario Inputs -->
+                                        <div id="scenario_inputs_section" style="background: white; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                                <h2 style="margin: 0 0 6px 0; font-size: 10px; font-weight: 600; color: #1e293b; text-transform: uppercase;">Scenario Inputs</h2>
+                                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                                        <div style="display: flex; flex-direction: column;">
+                                                                <label style="font-size: 7px; color: #64748b; margin-bottom: 2px;">Scenario Type</label>
+                                                                <div style="display: flex; gap: 8px; align-items: center;">
+                                                                        <label style="display: flex; align-items: center; gap: 3px; font-size: 8px; color: #475569; cursor: pointer;">
+                                                                                <input type="radio" name="scenario_type" value="Death" style="width: 12px; height: 12px; cursor: pointer;" />
+                                                                                Death
+                                                                        </label>
+                                                                        <label style="display: flex; align-items: center; gap: 3px; font-size: 8px; color: #475569; cursor: pointer;">
+                                                                                <input type="radio" name="scenario_type" value="Retirement" style="width: 12px; height: 12px; cursor: pointer;" />
+                                                                                Retirement
+                                                                        </label>
+                                                                </div>
+                                                        </div>
+                                                        
+                                                        <!-- Death scenario fields -->
+                                                        <div id="death_scenario_fields" style="display: none; flex-direction: column; gap: 4px;">
+                                                                <div style="display: flex; flex-direction: column;">
+                                                                        <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Death Age</label>
+                                                                        <input type="number" id="input_death_age" placeholder="Age" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                                </div>
+                                                        </div>
+                                                        
+                                                        <!-- Retirement scenario fields -->
+                                                        <div id="retirement_scenario_fields" style="display: none; flex-direction: column; gap: 4px;">
+                                                                <div style="display: flex; flex-direction: column;">
+                                                                        <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Retirement Age</label>
+                                                                        <input type="number" id="input_scenario_retirement_age" placeholder="Age" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                                </div>
+                                                                <div style="display: flex; flex-direction: column;">
+                                                                        <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Monthly Retirement Expenses</label>
+                                                                        <input type="number" id="input_scenario_monthly_retirement_expenses" placeholder="Amount" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                                </div>
+                                                                <div style="display: flex; flex-direction: column;">
+                                                                        <label style="font-size: 7px; color: #64748b; margin-bottom: 1px;">Life Expectancy</label>
+                                                                        <input type="number" id="input_scenario_life_expectancy" placeholder="Years" style="height: 18px; font-size: 8px; padding: 3px; border: 1px solid #e2e8f0; border-radius: 3px;" />
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                
+                                <!-- Tabs and AI Intelligence Section -->
+                                <div style="display: flex; flex: 1; overflow: hidden; min-height: 0;">
+                                        <!-- Tabs Container (Left/Center) -->
+                                        <div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; background: white;">
+                                <div class="tabs-header" style="flex-shrink: 0;">
+                                        <button class="tab-btn active" data-tab="analysis">📊 Analysis</button>
+                                        <button class="tab-btn" data-tab="insights">💡 Insights</button>
+                                </div>                                                <div class="tabs-content" style="flex: 1; overflow-y: auto;">
+                                                        <!-- Analysis Tab -->
+                                                        <div id="analysis-tab" class="tab-content active">
+                                                                <div class="analysis-container">
+                                                                        <div class="analysis-header" style="padding: 12px 20px;">
+                                                                                <h2 style="font-size: 16px; margin: 0 0 4px 0;">Financial Gap Analysis</h2>
+                                                                                <p style="font-size: 11px; margin: 0; color: #64748b;">Income, expenses, and savings across your lifetime</p>
+                                                                        </div>
+                                                                        
+                                                                        <div id="analysis-content" style="padding: 15px; max-width: 1000px; margin: 0 auto;">
+                                                                                <!-- Chart will be rendered here dynamically -->
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                        
+                                                        <!-- Insights Tab -->
+                                                        <div id="insights-tab" class="tab-content">
+                                                                <div style="padding: 40px; text-align: center; color: #94a3b8;">
+                                                                        <p style="font-size: 14px;">Insights will appear here based on your financial profile</p>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        
+                                        <!-- AI Intelligence Panel (Right Side) -->
+                                        <div style="width: 280px; background: #f8fafc; border-left: 1px solid #e2e8f0; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0;">
+                                                <h2 style="margin: 0 0 8px 0; font-size: 12px; font-weight: 700; color: #1e293b; text-transform: uppercase;">� AI Analytics Hub</h2>
+                                                
+                                                <!-- Customer Category -->
+                                                <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                                        <h3 style="margin: 0 0 8px 0; font-size: 10px; font-weight: 600; color: #475569;">Customer Category</h3>
+                                                        <div id="customer_category" style="font-size: 9px; color: #64748b;">
+                                                                <div style="background: #f1f5f9; padding: 8px; border-radius: 4px; text-align: center;">
+                                                                        <div style="font-weight: 600; color: #1e293b; margin-bottom: 4px;">Not Categorized</div>
+                                                                        <div style="font-size: 8px;">Complete your profile to see your customer category</div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                
+                                                <!-- Prediction -->
+                                                <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                                        <h3 style="margin: 0 0 8px 0; font-size: 10px; font-weight: 600; color: #475569;">Prediction</h3>
+                                                        <div id="prediction" style="font-size: 9px; color: #64748b;">
+                                                                <!-- Predictions will be dynamically added here -->
+                                                        </div>
+                                                </div>
+                                                
+                                        </div>
+                                </div>
+                        </main>
+                </div>
+        </div>
+
+        <div id="toasts" class="toasts"></div>
+
+        <!-- Edit Modal -->
+        <div id="editModal" class="modal" aria-hidden="true">
+                <div class="modal-backdrop"></div>
+                <div class="modal-card" role="dialog" aria-modal="true">
+                        <div class="modal-header">
+                                <h3 id="editTitle">Edit Field</h3>
+                                <button id="editClose" class="icon-btn" aria-label="Close">✕</button>
+                        </div>
+                        <div class="modal-body">
+                                <input id="editInput" />
+                                <small id="editHint" class="hint"></small>
+                        </div>
+                        <div class="modal-footer">
+                                <button id="editCancel" class="btn-secondary">Cancel</button>
+                                <button id="editSave" class="btn-primary">Save</button>
+                        </div>
+                </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="/app.js"></script>
+</body>
+</html>

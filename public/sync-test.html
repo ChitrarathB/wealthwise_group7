@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Transcript Sync Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .audio-controls { margin: 20px 0; }
+        .audio-controls button { margin: 0 5px; padding: 8px 12px; }
+        #messages { 
+            border: 1px solid #ccc; 
+            height: 300px; 
+            overflow-y: auto; 
+            padding: 10px; 
+            margin: 20px 0; 
+            background: #f9f9f9;
+        }
+        .msg { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .msg.assistant { background: #e3f2fd; border-left: 3px solid #2196f3; }
+        .msg.user { background: #f3e5f5; border-left: 3px solid #9c27b0; }
+        .speaker-label { font-weight: bold; font-size: 12px; color: #555; }
+        .message-timestamp { font-size: 10px; color: #999; margin: 2px 0; }
+        .bubble { margin-top: 5px; }
+        .debug { background: #fff3cd; padding: 10px; margin: 10px 0; border: 1px solid #ffeaa7; }
+        .sync-button { background: #28a745; color: white; border: none; padding: 5px 10px; border-radius: 3px; }
+        .sync-button.off { background: #6c757d; }
+    </style>
+</head>
+<body>
+    <h1>Audio Transcript Sync Test</h1>
+    
+    <div class="debug" id="debug-info">
+        Debug info will appear here...
+    </div>
+    
+    <div class="audio-controls">
+        <audio id="agentAudio" controls>
+            <source src="/agent_conv.wav" type="audio/wav">
+        </audio>
+        <br><br>
+        <button onclick="toggleSync()" id="syncBtn" class="sync-button off">📝 Sync Off</button>
+        <button onclick="testMessage()">Test Message</button>
+        <button onclick="clearMessages()">Clear Messages</button>
+    </div>
+    
+    <div>
+        <strong>Audio Time:</strong> <span id="audioTime">0.00</span> seconds
+    </div>
+    
+    <div id="messages"></div>
+
+    <script>
+        let conversationTranscript = [];
+        let isTranscriptSyncEnabled = false;
+        let displayedTranscriptIndices = new Set();
+        
+        function debug(message) {
+            const debugDiv = document.getElementById('debug-info');
+            const time = new Date().toLocaleTimeString();
+            debugDiv.innerHTML += `[${time}] ${message}<br>`;
+            debugDiv.scrollTop = debugDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        async function loadTranscript() {
+            try {
+                debug('Loading conversation transcript...');
+                const response = await fetch('/conversation_transcript.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                conversationTranscript = await response.json();
+                debug(`✅ Loaded ${conversationTranscript.length} transcript segments`);
+                debug(`First segment: ${conversationTranscript[0]?.speaker} - "${conversationTranscript[0]?.content?.substring(0, 50)}..."`);
+                return true;
+            } catch (error) {
+                debug(`❌ Error loading transcript: ${error.message}`);
+                return false;
+            }
+        }
+        
+        function toggleSync() {
+            isTranscriptSyncEnabled = !isTranscriptSyncEnabled;
+            const btn = document.getElementById('syncBtn');
+            
+            if (isTranscriptSyncEnabled) {
+                btn.textContent = '📝 Sync On';
+                btn.className = 'sync-button';
+                debug('✅ Transcript sync ENABLED');
+                displayedTranscriptIndices.clear();
+                clearMessages();
+            } else {
+                btn.textContent = '📝 Sync Off';
+                btn.className = 'sync-button off';
+                debug('❌ Transcript sync DISABLED');
+            }
+        }
+        
+        function updateTranscriptSync(currentTime) {
+            if (!isTranscriptSyncEnabled || conversationTranscript.length === 0) {
+                return;
+            }
+            
+            conversationTranscript.forEach((segment, index) => {
+                if (displayedTranscriptIndices.has(index)) return;
+                
+                const displayTime = segment.end_time + 3.0;
+                
+                if (currentTime >= displayTime) {
+                    debug(`🎯 Displaying segment ${index + 1}: ${segment.speaker} at ${currentTime.toFixed(1)}s (trigger: ${displayTime.toFixed(1)}s)`);
+                    displayTranscriptSegment(segment, index);
+                    displayedTranscriptIndices.add(index);
+                }
+            });
+        }
+        
+        function displayTranscriptSegment(segment, index) {
+            const role = segment.speaker === 'ME' ? 'assistant' : 'user';
+            const speakerName = segment.speaker === 'ME' ? 'Advisor' : segment.speaker;
+            
+            const wrap = document.createElement('div');
+            wrap.className = `msg ${role} transcript-sync`;
+            
+            const label = document.createElement('div');
+            label.className = 'speaker-label';
+            label.textContent = speakerName;
+            wrap.appendChild(label);
+            
+            const timestamp = document.createElement('div');
+            timestamp.className = 'message-timestamp';
+            timestamp.textContent = `${segment.start_time.toFixed(1)}s - ${segment.end_time.toFixed(1)}s`;
+            wrap.appendChild(timestamp);
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.textContent = segment.content;
+            wrap.appendChild(bubble);
+            
+            document.getElementById('messages').appendChild(wrap);
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+        }
+        
+        function testMessage() {
+            const testSegment = {
+                speaker: 'ME',
+                content: 'This is a test message to verify the message display works!',
+                start_time: 0,
+                end_time: 3
+            };
+            displayTranscriptSegment(testSegment, 999);
+            debug('📝 Test message displayed');
+        }
+        
+        function clearMessages() {
+            document.getElementById('messages').innerHTML = '';
+            debug('🗑️ Messages cleared');
+        }
+        
+        // Audio event listeners
+        const audio = document.getElementById('agentAudio');
+        const audioTimeDisplay = document.getElementById('audioTime');
+        
+        audio.addEventListener('timeupdate', () => {
+            const currentTime = audio.currentTime;
+            audioTimeDisplay.textContent = currentTime.toFixed(2);
+            updateTranscriptSync(currentTime);
+        });
+        
+        audio.addEventListener('play', () => {
+            debug('▶️ Audio started playing');
+        });
+        
+        audio.addEventListener('pause', () => {
+            debug('⏸️ Audio paused');
+        });
+        
+        audio.addEventListener('ended', () => {
+            debug('⏹️ Audio ended');
+        });
+        
+        // Load transcript on page load
+        window.addEventListener('load', async () => {
+            debug('🚀 Page loaded, initializing...');
+            await loadTranscript();
+            debug('✅ Ready! Enable sync and play audio to test.');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+{
+  "clusters": [
+    {
+      "category": "High-Debt Leverage (Maximum Risk)",
+      "products": [
+        {
+          "name": "Mortgage Protector Plus",
+          "description": "A decreasing term life insurance plan that pays off outstanding home or personal loans if the insured passes away or suffers total permanent disability."
+        },
+        {
+          "name": "Income Shield Rider",
+          "description": "An add-on that provides monthly income replacement in case of critical illness or disability, helping maintain loan payments and family expenses."
+        },
+        {
+          "name": "Debt Guard ULIP",
+          "description": "A unit-linked plan combining life protection with investment, designed to help repay large debts while building long-term wealth."
+        }
+      ]
+    },
+    {
+      "category": "Affluent Professional",
+      "products": [
+        {
+          "name": "Apex Prestige Whole Life",
+          "description": "A lifetime protection plan with guaranteed cash value and estate planning benefits for high-income professionals."
+        },
+        {
+          "name": "WealthBuilder Premier",
+          "description": "An investment-linked policy offering diversified global fund options and loyalty bonuses to optimize long-term wealth."
+        },
+        {
+          "name": "GlobalCare Elite",
+          "description": "An international health insurance plan offering worldwide hospitalization, medical evacuation, and concierge healthcare support."
+        }
+      ]
+    },
+    {
+      "category": "Career Starter (Emerging Affluent)",
+      "products": [
+        {
+          "name": "Starter Term Protect",
+          "description": "An affordable term life plan providing essential coverage for young professionals starting their financial journey."
+        },
+        {
+          "name": "SmartSaver Endowment",
+          "description": "A short-term savings plan that encourages financial discipline and helps achieve early financial goals."
+        },
+        {
+          "name": "HealthFirst Lite",
+          "description": "A basic health plan offering affordable hospitalization and critical illness coverage for young adults."
+        }
+      ]
+    },
+    {
+      "category": "Mid-Career / Transitional",
+      "products": [
+        {
+          "name": "FamilyProtect Term with CI Rider",
+          "description": "A comprehensive term insurance with critical illness and disability riders, ensuring family protection during peak responsibility years."
+        },
+        {
+          "name": "EduPlan Child Education",
+          "description": "An endowment plan that secures your child's future education goals even in the event of unforeseen circumstances."
+        },
+        {
+          "name": "LifeGrow Bonus Saver",
+          "description": "A participating endowment policy that builds mid-term savings with annual bonuses and guaranteed maturity benefits."
+        }
+      ]
+    },
+    {
+      "category": "Legacy Planner (Highest Wealth)",
+      "products": [
+        {
+          "name": "LegacyMax Whole Life",
+          "description": "A high-sum whole life policy designed for estate equalization and wealth transfer to the next generation."
+        },
+        {
+          "name": "Universal Life Prestige",
+          "description": "A flexible universal life plan combining high-value protection with investment options for affluent clients."
+        },
+        {
+          "name": "Private Wealth Annuity",
+          "description": "A premium annuity that converts wealth into a guaranteed lifetime income stream for financial independence."
+        }
+      ]
+    },
+    {
+      "category": "Young Family / Protector",
+      "products": [
+        {
+          "name": "FamilyShield Term Plan",
+          "description": "A term life plan ensuring financial continuity for dependents in case of premature death or disability."
+        },
+        {
+          "name": "EduSecure Child Plan",
+          "description": "A child education policy guaranteeing payout for schooling costs, even if the parent is unable to continue payments."
+        },
+        {
+          "name": "MediPlus Family Health Plan",
+          "description": "A comprehensive family health insurance covering maternity, hospitalization, and pediatric illnesses."
+        }
+      ]
+    },
+    {
+      "category": "Atypical / Investment Earner",
+      "products": [
+        {
+          "name": "FlexiWealth ULIP",
+          "description": "An investment-linked plan allowing fund switches, partial withdrawals, and capital growth flexibility for active investors."
+        },
+        {
+          "name": "IncomeBridge Plan",
+          "description": "A guaranteed income plan with critical illness protection, ideal for freelancers and variable earners."
+        },
+        {
+          "name": "PrimeHealth Shield",
+          "description": "A standalone medical insurance plan designed for self-employed or investors without employer health benefits."
+        }
+      ]
+    },
+    {
+      "category": "Pre-Retirement Accumulator",
+      "products": [
+        {
+          "name": "GoldenNest Retirement Annuity",
+          "description": "A retirement plan that converts accumulated savings into a guaranteed income stream for post-retirement years."
+        },
+        {
+          "name": "HealthPlus 60+",
+          "description": "A senior-focused health and critical illness policy covering chronic and long-term care costs beyond age 60."
+        },
+        {
+          "name": "CapitalSecure Endowment",
+          "description": "A low-risk, capital-protected endowment plan for safe short-term accumulation before retirement."
+        }
+      ]
+    }
+  ]
+}

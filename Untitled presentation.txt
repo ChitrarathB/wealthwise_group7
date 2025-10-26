@@ -1,0 +1,134 @@
+
+Group 7: WealthWiseFinancial Profile Assistant
+Harshit AGARWAL (A0315374E)Chitrarath BHATTACHARJEE (A0315514M)Jia Hui GAN (A0260540R)
+
+Project Summary and Value Proposition
+Challenges
+Illustrative Scenarios
+Project Objectives
+UI Journey
+Solution Architecture
+3
+
+Project Summary & Value Proposition
+Financial institutions currently maintain massive reserves of customer transactional and profile data—millions of records overall—but this information remains inert. The critical objective is to activate this untapped resource to deliver proactive, personalized guidance directly at the point of customer interaction or sale.
+
+We are building a platform that uses real-time conversational data to synthesize customer financial attributes and deliver proactive, product guidance. This capability is paired with dynamic visual representations of the customer's financial health, empowering agents and customers to conduct comprehensive financial planning through instant, data-driven visualizations. This rich, real-time data is processed using analytical models to efficiently segment and understand customer needs, enabling us to automate insightful next-best-action recommendations and power agency training through conversation sentiment analysis.
+
+Critically, the platform is designed with a robust, privacy-first architecture, ensuring all customer data and proprietary conversations remain entirely private and secured within the financial institution's environment.
+
+
+Group 7
+4
+
+What are the main challenges?
+5
+Group 7
+Tedious 
+Data Gathering
+Financial Advisor spend considerable time manually filling forms during customer meetings.
+
+Lack of Contextual Forecasting
+Customers (D2C) and agents cannot visualize future financial changes (income, expenses, inflation rates) or life event impacts.
+Inconsistent Agent Quality
+New Financial Advisors lack the deep, data-driven intuition of seasoned veterans. Advice quality is highly variable.
+Conversation Blind Spots
+No effective mechanism to analyse sentiment or identify friction points during advisor-customer dialogue.
+
+Group 7
+6
+Scenario
+Agent Assist Solution
+Outcome
+Forecasting Input: 
+
+Chris asks, "Hey Advisor, I'm 30. How much do I need to save to retire comfortably to cover my expenses? I'm guessing 3% inflation and 5% return."
+System Action: AI Optimal Rate Suggestion: 
+
+The system calculates the forecasted rates based on past historical data from trusted data sources Optimal Inflation 2.5%, Optimal Return 7.2%.
+Accurate Planning: Chris’s financial plan is grounded in data, not guesswork. He avoids using a rate of return that is either too conservative or overly aggressive.
+Insight:
+Chris asks, "But I am planning for a child next year. What happens then?"
+System Action: Clustering Model analyses "Married, Age 30-35" peers, factoring in Life Event data (e.g., typical child expense bump).
+Contextual Foresight: 
+The system plots a new trajectory showing a 12% expense increase from Year 1 till Year 21, creating a visible "Gap" on the financial graph.
+Recommendation: 
+Chris asks, "What's the best way to fill that gap?"
+System Action: Two-Tower Recommender filters products based on his Need (Retirement) and Cluster (Young, high-risk tolerance).
+Personalized Action: System recommends the Annuity with a high-growth projection, explaining the required monthly contribution of $500 to close the gap.
+Persona 1 of 2: CustomerChris: 30 , Single, First Job, Medium Savings, Low Financial Literacy) 
+
+Challenge: Chris knows he should save but struggles with the complex inputs required for planning (e.g., estimating long-term growth rates).
+
+Group 7
+7
+Scenario
+Agent Assist Solution
+Outcome
+Fact Find: Ms. Lee mentions she feels "worried about paying off the house if something happens."
+System Action: Real-time transcription captures the liability.
+
+The LLM extracts the Protection gap: Mortgage.
+Amanda can focus on discussion and nurturing the lead rather than manual data entry. Finally the data can be reviewed with customer.
+Recommendation: 
+Amanda initially planned to sell a generic Term Life policy.
+System Action: 
+Recommendation Engine suggests Mortgage Safeguard' (Liability-based Term Life) citing Ms. Lee's high mortgage liability.
+Amanda gives targeted, relevant advice, increasing Ms. Lee's trust and increasing sales probability.
+Post-Call Analysis (Learning): Amanda reviews her conversation summary later.
+Sentiment Report highlights: Customer sentiment was negative immediately after Amanda asked personal questions on medical history. 
+Amanda learns precisely when and why the sales momentum stalled, allowing her to practice similar situation better.
+Persona 2 of 2: Financial AdvisorAmanda (6 months experience)
+
+Customer: Ms. Lee (Mid-40s, Married, Two Children, Good Income, High Mortgage) 
+
+Challenge: Alex struggles to remember all product details and risks missing a critical need.
+
+Project Objectives
+8
+Group 7
+Strategic Objective
+AI Solution Component
+Business Outcome
+ Data Analysis & Segmentation
+Clustering Engine: Segment the entire customer base into distinct financial cohorts.
+Informs Product Strategy: Understand which segments to target, identify unmet needs, and design profitable new products tailored to specific cohorts, driving strategic investment decisions.
+ Speech Diarization, Transcript and Fact Find
+End-to-End Automation Pipeline: Converts unstructured audio data (conversation) directly into structured financial data (fact-find).
+Increases Sales Conversion by focusing agent time on advice, not data entry, and providing instant, accurate product suggestions.
+ Predictive Foresight 
+AI Forecasting & Simulation: Predict future saving/expense rates and model the financial impact of life events.
+Proactive Needs Identification: Provides agents and customers with AI-suggested optimal rates for accurate forecasting and highlights future shortfalls years in advance.
+Personalized Recommendation
+
+Recommendation System: Generates product suggestions based on two factors: 
+1) Customer Segment (what similar customers buy) and 2) Needs Analysis (goals/protection needs).
+
+Targeted Sales: Ensures every recommendation maximizes customer value and addresses specific shortfalls identified by the AI.
+
+Agent Training & Quality
+Post-Call Conversational Analytics (Sentiment, Friction Points): Provides objective, data-backed reports on agent-customer interactions after the call.
+Scalable Training: Allows the institution to train new agents faster and more effectively by targeting specific skill gaps (e.g., handling price objections) identified by the AI.
+
+UI Journey
+9
+Group 7
+
+10
+
+11
+
+12
+
+13
+
+14
+
+Solution Architecture
+13
+Group 7
+
+Thank you!Group 7
+Harshit AGARWAL (A0315374E)
+Chitrarath BHATTACHARJEE (A0315514M)
+Jia Hui GAN (A0260540R)

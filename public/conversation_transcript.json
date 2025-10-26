@@ -1,0 +1,290 @@
+[
+  {
+    "speaker": "ME",
+    "content": "hey sarah its great to see you again how have you been still managing that regional workload or have things calmed down a bit its",
+    "start_time": 0.0,
+    "end_time": 7.1
+  },
+  {
+    "speaker": "Sarah",
+    "content": "a little better now thankfully fewer flights more time at home",
+    "start_time": 7.1,
+    "end_time": 12.0
+  },
+  {
+    "speaker": "ME",
+    "content": "thats good to hear balance makes all the difference so todays chat is pretty relaxed i just want to understand where you are financially and see how your plans might evolve in the next few years well build a projection together your current picture plus a few what if scenarios like marriage kids or unexpected events just to visualize the impact before making any decisions im",
+    "start_time": 12.2,
+    "end_time": 30.3
+  },
+  {
+    "speaker": "Sarah",
+    "content": "curious to see how that looks actually",
+    "start_time": 30.5,
+    "end_time": 34.6
+  },
+  {
+    "speaker": "ME",
+    "content": "alright lets start simple how old are you im",
+    "start_time": 34.7,
+    "end_time": 37.6
+  },
+  {
+    "speaker": "Sarah",
+    "content": "29",
+    "start_time": 37.7,
+    "end_time": 39.0
+  },
+  {
+    "speaker": "ME",
+    "content": "nice good age to get serious about long term planning are you single or married at the moment",
+    "start_time": 39.1,
+    "end_time": 43.6
+  },
+  {
+    "speaker": "Sarah",
+    "content": "single",
+    "start_time": 43.7,
+    "end_time": 44.8
+  },
+  {
+    "speaker": "ME",
+    "content": "got it any dependents no",
+    "start_time": 44.9,
+    "end_time": 45.8
+  },
+  {
+    "speaker": "Sarah",
+    "content": "i dont have dependents",
+    "start_time": 45.8,
+    "end_time": 47.5
+  },
+  {
+    "speaker": "ME",
+    "content": "noted thanks tell me about work still with the consultancy firm",
+    "start_time": 47.6,
+    "end_time": 51.3
+  },
+  {
+    "speaker": "Sarah",
+    "content": "yes ive been promoted recently to senior consultant",
+    "start_time": 51.4,
+    "end_time": 55.3
+  },
+  {
+    "speaker": "ME",
+    "content": "congrats thats great news whats your current monthly take home roughly",
+    "start_time": 55.4,
+    "end_time": 59.3
+  },
+  {
+    "speaker": "Sarah",
+    "content": "about 7500",
+    "start_time": 59.3,
+    "end_time": 61.8
+  },
+  {
+    "speaker": "ME",
+    "content": "perfect and do you usually get a raise or bonus each year",
+    "start_time": 61.9,
+    "end_time": 64.9
+  },
+  {
+    "speaker": "Sarah",
+    "content": "usually around 5 percent increment plus a small year end bonus",
+    "start_time": 65.1,
+    "end_time": 69.6
+  },
+  {
+    "speaker": "ME",
+    "content": "nice ill use that as your growth rate well assume it continues steadily till you decide to slow down any additional income sources like rental dividends or royalties",
+    "start_time": 69.6,
+    "end_time": 78.4
+  },
+  {
+    "speaker": "Sarah",
+    "content": "yes actually i have a small studio apartment that i rent out it brings in about 900 a month the tenants been consistent for a few years and i plan to keep it that way long term",
+    "start_time": 78.5,
+    "end_time": 90.9
+  },
+  {
+    "speaker": "ME",
+    "content": "nice a stable passive stream is always helpful so thats ongoing not ending anytime soon",
+    "start_time": 91.0,
+    "end_time": 96.3
+  },
+  {
+    "speaker": "Sarah",
+    "content": "exactly its just steady rent that i expect to continue indefinitely",
+    "start_time": 96.4,
+    "end_time": 101.1
+  },
+  {
+    "speaker": "ME",
+    "content": "perfect ill record that as a permanent passive income stream thatll help balance your cashflow especially after retirement when your active income stops lets talk about lifestyle roughly how much do you spend each month rent food transport bills all in",
+    "start_time": 101.2,
+    "end_time": 114.8
+  },
+  {
+    "speaker": "Sarah",
+    "content": "around 4500 including utilities and a bit of travel",
+    "start_time": 114.9,
+    "end_time": 120.7
+  },
+  {
+    "speaker": "ME",
+    "content": "alright that gives us a comfortable baseline well factor in gradual inflation on top of that internally",
+    "start_time": 120.8,
+    "end_time": 126.4
+  },
+  {
+    "speaker": "ME",
+    "content": "any ongoing loans i should include home car or others",
+    "start_time": 126.5,
+    "end_time": 129.6
+  },
+  {
+    "speaker": "Sarah",
+    "content": "just my car loan about 900 a month itll be done when im 33",
+    "start_time": 129.7,
+    "end_time": 136.9
+  },
+  {
+    "speaker": "ME",
+    "content": "great thats simple no personal or education loans right",
+    "start_time": 137.0,
+    "end_time": 140.8
+  },
+  {
+    "speaker": "Sarah",
+    "content": "nope none",
+    "start_time": 140.9,
+    "end_time": 142.9
+  },
+  {
+    "speaker": "ME",
+    "content": "perfect clean balance sheet how about savings how much do you have in your bank or emergency fund currently",
+    "start_time": 142.9,
+    "end_time": 148.6
+  },
+  {
+    "speaker": "Sarah",
+    "content": "around 85000 total between savings and a fixed deposit",
+    "start_time": 148.7,
+    "end_time": 154.7
+  },
+  {
+    "speaker": "ME",
+    "content": "nice thats solid ill use that as your starting liquidity lets talk about retirement scenario if you could pick what age would you ideally like to retire or at least slow down",
+    "start_time": 154.7,
+    "end_time": 164.0
+  },
+  {
+    "speaker": "Sarah",
+    "content": "probably around 60",
+    "start_time": 164.1,
+    "end_time": 166.6
+  },
+  {
+    "speaker": "ME",
+    "content": "good thats achievable and how much monthly income would you like to maintain after retirement",
+    "start_time": 166.7,
+    "end_time": 172.0
+  },
+  {
+    "speaker": "Sarah",
+    "content": "about 4000 per month should be comfortable",
+    "start_time": 172.2,
+    "end_time": 177.1
+  },
+  {
+    "speaker": "ME",
+    "content": "perfect thatll help me set your post retirement expense goal now sarah this next part is where the plan gets really insightful well run a few what if scenarios to see how key life events might affect your financial curve your income expenses and savings over time instead of me guessing you tell me your assumptions and ill build them in",
+    "start_time": 177.1,
+    "end_time": 199.6
+  },
+  {
+    "speaker": "Sarah",
+    "content": "okay sounds fun",
+    "start_time": 199.7,
+    "end_time": 202.6
+  },
+  {
+    "speaker": "ME",
+    "content": "alright if you imagine your future at what age do you think you might get married",
+    "start_time": 202.7,
+    "end_time": 207.6
+  },
+  {
+    "speaker": "Sarah",
+    "content": "hmm probably around 32",
+    "start_time": 207.6,
+    "end_time": 210.3
+  },
+  {
+    "speaker": "ME",
+    "content": "okay marriage at 32 and what about starting a family any idea when you might want to have your first child",
+    "start_time": 210.4,
+    "end_time": 217.6
+  },
+  {
+    "speaker": "Sarah",
+    "content": "maybe around 36",
+    "start_time": 217.7,
+    "end_time": 220.8
+  },
+  {
+    "speaker": "ME",
+    "content": "got it child at 36 thatll help us simulate how expenses may increase would you know the expenses",
+    "start_time": 220.9,
+    "end_time": 226.7
+  },
+  {
+    "speaker": "Sarah",
+    "content": "no idea please help me out with an approximation",
+    "start_time": 226.7,
+    "end_time": 230.3
+  },
+  {
+    "speaker": "ME",
+    "content": "now one more scenario a bit sensitive but important we usually test a what if for early death to measure protection adequacy if you were to pick an age for the simulation what would you like me to use something like 40 or later",
+    "start_time": 230.4,
+    "end_time": 247.2
+  },
+  {
+    "speaker": "Sarah",
+    "content": "lets say 40 just to see how things look in a worst case situation",
+    "start_time": 247.2,
+    "end_time": 253.4
+  },
+  {
+    "speaker": "ME",
+    "content": "good choice that way we can see how long your savings and passive income would sustain your dependents if your active income stops suddenly",
+    "start_time": 253.5,
+    "end_time": 262.2
+  },
+  {
+    "speaker": "Sarah",
+    "content": "thats actually very practical",
+    "start_time": 262.3,
+    "end_time": 265.0
+  },
+  {
+    "speaker": "ME",
+    "content": "exactly its not about predicting its about being prepared",
+    "start_time": 265.3,
+    "end_time": 270.0
+  },
+  {
+    "speaker": "Sarah",
+    "content": "makes sense i like seeing how all three compare visually",
+    "start_time": 270.0,
+    "end_time": 274.0
+  },
+  {
+    "speaker": "ME",
+    "content": "exactly it gives you clarity to plan ahead confidently see from the chart we can see the shortfalls and there are insurance products that we can recommend based on your goals and requirements",
+    "start_time": 274.0,
+    "end_time": 284.3
+  }
+]

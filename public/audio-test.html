@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .controls { margin: 20px 0; }
+        button { margin: 5px; padding: 10px; font-size: 14px; }
+        .debug { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .wave-bar { animation: wave-animation 1.2s ease-in-out infinite; }
+        @keyframes wave-animation {
+            0%, 100% { transform: scaleY(1); opacity: 0.7; }
+            50% { transform: scaleY(1.8); opacity: 1; }
+        }
+        .audio-playing .wave-bar { animation-play-state: running; }
+        .audio-paused .wave-bar { animation-play-state: paused; }
+        .audio-stopped .wave-bar { animation-play-state: paused; transform: scaleY(1); opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <h1>Audio Player Test</h1>
+    
+    <div class="debug">
+        <h3>Debug Information:</h3>
+        <div id="debugInfo">Loading...</div>
+    </div>
+    
+    <div class="controls">
+        <audio id="testAudio" preload="metadata" controls>
+            <source src="/agent_conv.wav" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    
+    <div class="controls">
+        <button id="playBtn">▶ Play</button>
+        <button id="pauseBtn">⏸ Pause</button>
+        <button id="stopBtn">⏹ Stop</button>
+        <span id="timeDisplay">00:00/00:00</span>
+    </div>
+    
+    <div id="waveAnimation" class="audio-stopped" style="display: flex; align-items: center; gap: 2px; margin: 20px 0;">
+        <div class="wave-bar" style="width: 3px; height: 10px; background: #dc2626; border-radius: 1px;"></div>
+        <div class="wave-bar" style="width: 3px; height: 15px; background: #dc2626; border-radius: 1px;"></div>
+        <div class="wave-bar" style="width: 3px; height: 20px; background: #dc2626; border-radius: 1px;"></div>
+        <div class="wave-bar" style="width: 3px; height: 15px; background: #dc2626; border-radius: 1px;"></div>
+        <div class="wave-bar" style="width: 3px; height: 10px; background: #dc2626; border-radius: 1px;"></div>
+    </div>
+    
+    <div class="debug">
+        <h3>Console Output:</h3>
+        <div id="consoleOutput" style="background: black; color: green; padding: 10px; max-height: 200px; overflow-y: auto; font-family: monospace;"></div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('testAudio');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const waveAnimation = document.getElementById('waveAnimation');
+        const debugInfo = document.getElementById('debugInfo');
+        const consoleOutput = document.getElementById('consoleOutput');
+        
+        // Console logging to page
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            consoleOutput.innerHTML += '<div style="color: lightgreen;">[LOG] ' + args.join(' ') + '</div>';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            consoleOutput.innerHTML += '<div style="color: red;">[ERROR] ' + args.join(' ') + '</div>';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+        
+        function updateDebugInfo() {
+            debugInfo.innerHTML = `
+                <strong>Audio Source:</strong> ${audio.src}<br>
+                <strong>Ready State:</strong> ${audio.readyState} (${getReadyStateText(audio.readyState)})<br>
+                <strong>Duration:</strong> ${audio.duration || 'Unknown'}<br>
+                <strong>Current Time:</strong> ${audio.currentTime}<br>
+                <strong>Paused:</strong> ${audio.paused}<br>
+                <strong>Ended:</strong> ${audio.ended}<br>
+                <strong>Error:</strong> ${audio.error ? audio.error.message : 'None'}
+            `;
+        }
+        
+        function getReadyStateText(state) {
+            const states = ['HAVE_NOTHING', 'HAVE_METADATA', 'HAVE_CURRENT_DATA', 'HAVE_FUTURE_DATA', 'HAVE_ENOUGH_DATA'];
+            return states[state] || 'Unknown';
+        }
+        
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds < 0) return '00:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function updateTimeDisplay() {
+            const current = audio.currentTime || 0;
+            const duration = audio.duration || 0;
+            timeDisplay.textContent = `${formatTime(current)}/${formatTime(duration)}`;
+        }
+        
+        // Event listeners
+        audio.addEventListener('loadstart', () => {
+            console.log('Audio loading started');
+            updateDebugInfo();
+        });
+        
+        audio.addEventListener('loadedmetadata', () => {
+            console.log('Audio metadata loaded', { duration: audio.duration });
+            updateDebugInfo();
+            updateTimeDisplay();
+        });
+        
+        audio.addEventListener('canplay', () => {
+            console.log('Audio can play');
+            updateDebugInfo();
+        });
+        
+        audio.addEventListener('play', () => {
+            console.log('Audio playing');
+            waveAnimation.className = 'audio-playing';
+            updateDebugInfo();
+        });
+        
+        audio.addEventListener('pause', () => {
+            console.log('Audio paused');
+            waveAnimation.className = 'audio-paused';
+            updateDebugInfo();
+        });
+        
+        audio.addEventListener('ended', () => {
+            console.log('Audio ended');
+            waveAnimation.className = 'audio-stopped';
+            updateDebugInfo();
+        });
+        
+        audio.addEventListener('timeupdate', () => {
+            updateTimeDisplay();
+        });
+        
+        audio.addEventListener('error', (e) => {
+            console.error('Audio error:', e);
+            console.error('Error details:', {
+                code: audio.error?.code,
+                message: audio.error?.message
+            });
+            updateDebugInfo();
+        });
+        
+        // Button event listeners
+        playBtn.addEventListener('click', async () => {
+            console.log('Play button clicked');
+            try {
+                await audio.play();
+                console.log('Play successful');
+            } catch (error) {
+                console.error('Play failed:', error);
+            }
+        });
+        
+        pauseBtn.addEventListener('click', () => {
+            console.log('Pause button clicked');
+            audio.pause();
+        });
+        
+        stopBtn.addEventListener('click', () => {
+            console.log('Stop button clicked');
+            audio.pause();
+            audio.currentTime = 0;
+            waveAnimation.className = 'audio-stopped';
+            updateTimeDisplay();
+        });
+        
+        // Initial setup
+        console.log('Audio player test initialized');
+        updateDebugInfo();
+        
+        // Check if audio file is accessible
+        fetch('/agent_conv.wav', { method: 'HEAD' })
+            .then(response => {
+                console.log('Audio file check:', response.status, response.statusText);
+                console.log('Content-Type:', response.headers.get('content-type'));
+                console.log('Content-Length:', response.headers.get('content-length'));
+            })
+            .catch(error => {
+                console.error('Audio file check failed:', error);
+            });
+        
+        // Periodic debug updates
+        setInterval(updateDebugInfo, 1000);
+    </script>
+</body>
+</html>

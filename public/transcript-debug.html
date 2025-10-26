@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcript Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .error { color: red; }
+        .success { color: green; }
+        .info { color: blue; }
+        #console-output { background: #f5f5f5; padding: 10px; margin: 10px 0; max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Transcript Synchronization Debug</h1>
+    
+    <div class="debug-section">
+        <h3>Step 1: Load Transcript</h3>
+        <button onclick="testTranscriptLoad()">Test Load Transcript</button>
+        <div id="transcript-status"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h3>Step 2: Audio Player Test</h3>
+        <audio id="test-audio" controls>
+            <source src="agent_conv.wav" type="audio/wav">
+        </audio>
+        <br><br>
+        <div>Current Time: <span id="audio-time">0</span></div>
+        <button onclick="enableSync()">Enable Sync</button>
+        <button onclick="testSync()">Test Sync at 10s</button>
+    </div>
+    
+    <div class="debug-section">
+        <h3>Step 3: Message Display Test</h3>
+        <div id="messages" style="height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
+            <!-- Messages will appear here -->
+        </div>
+    </div>
+    
+    <div class="debug-section">
+        <h3>Console Output</h3>
+        <div id="console-output"></div>
+    </div>
+
+    <script>
+        let conversationTranscript = [];
+        let isTranscriptSyncEnabled = false;
+        let displayedTranscriptIndices = new Set();
+        
+        // Capture console output
+        const originalLog = console.log;
+        const originalError = console.error;
+        const consoleOutput = document.getElementById('console-output');
+        
+        function addConsoleOutput(type, message) {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${type.toUpperCase()}: ${message}`;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addConsoleOutput('info', args.join(' '));
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addConsoleOutput('error', args.join(' '));
+        };
+        
+        async function testTranscriptLoad() {
+            const status = document.getElementById('transcript-status');
+            status.innerHTML = 'Loading...';
+            
+            try {
+                console.log('Testing transcript load...');
+                const response = await fetch('/conversation_transcript.json');
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                conversationTranscript = await response.json();
+                console.log('Transcript loaded:', conversationTranscript.length, 'segments');
+                
+                status.innerHTML = `<span class="success">✅ Loaded ${conversationTranscript.length} transcript segments</span>`;
+                
+                // Display first few segments
+                const preview = conversationTranscript.slice(0, 3).map(s => 
+                    `${s.speaker}: "${s.content}" (${s.start_time}s - ${s.end_time}s)`
+                ).join('<br>');
+                status.innerHTML += '<br><br>Preview:<br>' + preview;
+                
+            } catch (error) {
+                console.error('Error loading transcript:', error);
+                status.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+        
+        function enableSync() {
+            isTranscriptSyncEnabled = true;
+            displayedTranscriptIndices.clear();
+            document.getElementById('messages').innerHTML = '';
+            console.log('Sync enabled');
+        }
+        
+        function testSync() {
+            if (conversationTranscript.length === 0) {
+                console.error('Load transcript first!');
+                return;
+            }
+            
+            const testTime = 10; // Test at 10 seconds
+            console.log('Testing sync at', testTime, 'seconds');
+            
+            updateTranscriptSync(testTime);
+        }
+        
+        function updateTranscriptSync(currentTimeSeconds) {
+            if (!isTranscriptSyncEnabled || conversationTranscript.length === 0) {
+                console.log('Sync disabled or no transcript');
+                return;
+            }
+            
+            console.log('Checking sync at time:', currentTimeSeconds);
+            
+            conversationTranscript.forEach((segment, index) => {
+                if (displayedTranscriptIndices.has(index)) return;
+                
+                const displayTime = segment.end_time + 3.0;
+                console.log(`Segment ${index}: end_time=${segment.end_time}, display_time=${displayTime}, current=${currentTimeSeconds}`);
+                
+                if (currentTimeSeconds >= displayTime) {
+                    console.log('Displaying segment:', index);
+                    displayTranscriptSegment(segment, index);
+                    displayedTranscriptIndices.add(index);
+                }
+            });
+        }
+        
+        function displayTranscriptSegment(segment, index) {
+            const role = segment.speaker === 'ME' ? 'assistant' : 'user';
+            const speakerName = segment.speaker === 'ME' ? 'Advisor' : segment.speaker;
+            
+            console.log(`Displaying: ${speakerName}: ${segment.content}`);
+            
+            const wrap = document.createElement('div');
+            wrap.style.cssText = `
+                margin: 8px 0;
+                padding: 8px;
+                border-radius: 5px;
+                border-left: 3px solid #3b82f6;
+                background: ${role === 'assistant' ? '#eff6ff' : '#f0f9ff'};
+            `;
+            
+            wrap.innerHTML = `
+                <div style="font-size: 10px; color: #64748b; font-weight: 600;">${speakerName}</div>
+                <div style="font-size: 8px; color: #9ca3af;">${segment.start_time}s - ${segment.end_time}s</div>
+                <div style="margin-top: 4px;">${segment.content}</div>
+            `;
+            
+            document.getElementById('messages').appendChild(wrap);
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+        }
+        
+        // Audio time tracking
+        const audio = document.getElementById('test-audio');
+        if (audio) {
+            audio.addEventListener('timeupdate', () => {
+                document.getElementById('audio-time').textContent = audio.currentTime.toFixed(1);
+                if (isTranscriptSyncEnabled) {
+                    updateTranscriptSync(audio.currentTime);
+                }
+            });
+        }
+        
+        // Auto-load transcript on page load
+        window.addEventListener('load', () => {
+            testTranscriptLoad();
+        });
+    </script>
+</body>
+</html>

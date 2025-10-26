@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WealthWise — Financial Profile Voice Agent</title>
+	<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+	<div class="progress"><div id="progressBar" class="bar" style="width: 0%"></div></div>
+	
+	<div class="app">
+		<header class="header">
+			<div class="brand">
+				<div class="logo">W</div>
+				<div class="brand-text">
+					<h1>WealthWise</h1>
+					<span>Financial Profile Assistant</span>
+				</div>
+			</div>
+			<div class="header-status">
+				<div class="status-pill" id="status_badge">Ready to Start</div>
+			</div>
+		</header>
+
+		<div class="dashboard">
+			<aside class="sidebar">
+				<div class="sidebar-section">
+					<h3>Key Metrics</h3>
+					<div class="metric-cards">
+						<div class="metric-card">
+							<div class="metric-icon">💰</div>
+							<div class="metric-info">
+								<div class="metric-label">Net Monthly</div>
+								<div class="metric-value" id="metric_net_monthly">—</div>
+							</div>
+						</div>
+						<div class="metric-card">
+							<div class="metric-icon">📊</div>
+							<div class="metric-info">
+								<div class="metric-label">Savings Rate</div>
+								<div class="metric-value" id="metric_savings_rate">—</div>
+							</div>
+						</div>
+						<div class="metric-card">
+							<div class="metric-icon">⚖️</div>
+							<div class="metric-info">
+								<div class="metric-label">Risk Profile</div>
+								<div class="metric-value" id="metric_risk">—</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="sidebar-section">
+					<h3>Profile Details</h3>
+                        <div class="profile-grid" id="profileGrid">
+						<div class="profile-item">
+							<span class="profile-icon">👥</span>
+							<div class="profile-content">
+								<div class="profile-label">Household</div>
+                                <div class="profile-value editable" data-field="household_size" id="household_size">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">💼</span>
+							<div class="profile-content">
+								<div class="profile-label">Income (SGD)</div>
+                                <div class="profile-value editable" data-field="monthly_income_sgd" id="monthly_income_sgd">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">🏠</span>
+							<div class="profile-content">
+								<div class="profile-label">Housing</div>
+                                <div class="profile-value editable" data-field="housing_type" id="housing_type">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">👶</span>
+							<div class="profile-content">
+								<div class="profile-label">Dependents</div>
+                                <div class="profile-value editable" data-field="dependents" id="dependents">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">🧾</span>
+							<div class="profile-content">
+								<div class="profile-label">Expenses (SGD)</div>
+                                <div class="profile-value editable" data-field="monthly_expenses_sgd" id="monthly_expenses_sgd">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">💰</span>
+							<div class="profile-content">
+								<div class="profile-label">Savings (SGD)</div>
+                                <div class="profile-value editable" data-field="savings_sgd" id="savings_sgd">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">🪙</span>
+							<div class="profile-content">
+								<div class="profile-label">CPF %</div>
+                                <div class="profile-value editable" data-field="cpf_employee_percent" id="cpf_employee_percent">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">🏦</span>
+							<div class="profile-content">
+								<div class="profile-label">Mortgage (SGD)</div>
+                                <div class="profile-value editable" data-field="liabilities_mortgage_sgd" id="liabilities_mortgage_sgd">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">📅</span>
+							<div class="profile-content">
+								<div class="profile-label">Horizon (years)</div>
+                                <div class="profile-value editable" data-field="invest_horizon_years" id="invest_horizon_years">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">📈</span>
+							<div class="profile-content">
+								<div class="profile-label">Monthly Invest</div>
+                                <div class="profile-value editable" data-field="monthly_invest_sgd" id="monthly_invest_sgd">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">🧩</span>
+							<div class="profile-content">
+								<div class="profile-label">Instruments</div>
+                                <div class="profile-value editable" data-field="preferred_instruments" id="preferred_instruments">—</div>
+							</div>
+						</div>
+						<div class="profile-item">
+							<span class="profile-icon">🎯</span>
+							<div class="profile-content">
+								<div class="profile-label">Goal</div>
+                                <div class="profile-value editable" data-field="investment_goal" id="investment_goal">—</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+
+			<main class="main-content">
+				<div class="tabs-container">
+					<div class="tabs-header">
+						<button class="tab-btn active" data-tab="profile">Profile Builder</button>
+						<button class="tab-btn" data-tab="analysis">Analysis</button>
+						<button class="tab-btn" data-tab="scenarios">Scenarios</button>
+						<button class="tab-btn" data-tab="plans">Plans</button>
+					</div>
+					
+					<div class="tabs-content">
+						<!-- Profile Builder Tab -->
+						<div id="profile-tab" class="tab-content active">
+							<div class="chat-container">
+								<div class="chat-header">
+									<h2>Voice Assistant</h2>
+									<div class="chat-status">
+										<span id="recIndicator" class="status-indicator">Ready</span>
+									</div>
+								</div>
+								
+								<div class="messages-container">
+									<div id="messages" class="messages"></div>
+								</div>
+								
+								<div class="input-area">
+									<div class="voice-controls">
+										<button id="startBtn" class="start-btn">🎙️ Start Session</button>
+										<button id="recordBtn" class="voice-btn" disabled>Hold to Talk</button>
+									</div>
+									<div class="text-input-area">
+										<input id="textInput" placeholder="Or type your answer here..." />
+										<button id="sendBtn" class="send-btn" disabled>Send</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Analysis Tab -->
+						<div id="analysis-tab" class="tab-content">
+							<div class="analysis-container">
+								<div class="analysis-header">
+									<h2>Financial Analysis</h2>
+									<p>Long-term projections based on your profile</p>
+								</div>
+								<div id="analysis-content">
+									<div class="chart-container">
+										<canvas id="analysisChart"></canvas>
+									</div>
+									<div id="analysis-summary" class="analysis-summary">
+										<p>Complete your profile to see personalized analysis</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Scenarios Tab -->
+						<div id="scenarios-tab" class="tab-content">
+							<div class="scenarios-container">
+								<div id="scenarios-content">
+									<p>Complete your profile to see scenario analysis</p>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Plans Tab -->
+						<div id="plans-tab" class="tab-content">
+							<div class="plans-container">
+								<div id="plans-content">
+									<p>Complete your profile to see personalized recommendations</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	<div id="toasts" class="toasts"></div>
+	<!-- Inline edit modal -->
+	<div id="editModal" class="modal" aria-hidden="true">
+		<div class="modal-backdrop"></div>
+		<div class="modal-card" role="dialog" aria-modal="true">
+			<div class="modal-header">
+				<h3 id="editTitle">Edit</h3>
+				<button id="editClose" class="icon-btn" aria-label="Close">✕</button>
+			</div>
+			<div class="modal-body">
+				<input id="editInput" />
+				<small id="editHint" class="hint"></small>
+			</div>
+			<div class="modal-footer">
+				<button id="editCancel" class="btn-secondary">Cancel</button>
+				<button id="editSave" class="btn-primary">Save</button>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="/app.js"></script>
+</body>
+</html>
+
+

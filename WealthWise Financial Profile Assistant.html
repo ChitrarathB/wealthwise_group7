@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<!-- saved from url=(0071)file:///Users/harshitagarwal/Desktop/project-sem2/ppt/presentation.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WealthWise Financial Profile Assistant</title>
+    <link rel="stylesheet" href="./WealthWise Financial Profile Assistant_files/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            padding: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 10;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+        }
+
+        .title-slide h1 {
+            font-size: 4.5rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .title-slide .subtitle {
+            font-size: 1.8rem;
+            color: #e0e7ff;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .team-members {
+            display: flex;
+            gap: 40px;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 15px;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Content Slide */
+        .content-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .slide-content {
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: scaleIn 0.6s ease-out;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .slide-title {
+            font-size: 3rem;
+            color: #1e3c72;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .slide-title i {
+            font-size: 2.5rem;
+            color: #667eea;
+            animation: pulse 2s infinite;
+        }
+
+        .slide-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            animation: slideInFromLeft 0.8s ease-out;
+        }
+
+        .highlight i {
+            font-size: 3rem;
+        }
+
+        /* Challenges Grid */
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .challenge-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .challenge-card:hover::before {
+            top: -60%;
+            right: -60%;
+        }
+
+        .challenge-card:nth-child(1) { animation-delay: 0.1s; }
+        .challenge-card:nth-child(2) { animation-delay: 0.2s; }
+        .challenge-card:nth-child(3) { animation-delay: 0.3s; }
+        .challenge-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .challenge-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .challenge-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .challenge-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .challenge-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scenario Cards */
+        .scenario-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .scenario-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            animation: slideInFromLeft 0.8s ease-out;
+        }
+
+        .scenario-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-box.action {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .scenario-box.outcome {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .scenario-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .scenario-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scenario-box p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .scenario-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Objectives Table */
+        .objectives-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .objectives-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.3rem;
+            text-align: left;
+        }
+
+        .objectives-table td {
+            padding: 20px;
+            border-bottom: 2px solid #e0e7ff;
+            font-size: 1.1rem;
+            vertical-align: top;
+        }
+
+        .objectives-table tr {
+            transition: all 0.3s ease;
+        }
+
+        .objectives-table tr:hover {
+            background: #f0f4ff;
+            transform: scale(1.02);
+        }
+
+        .objective-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        /* Persona Cards */
+        .persona-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .persona-icon {
+            font-size: 5rem;
+        }
+
+        .persona-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .persona-info p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+        }
+
+        /* Thank You Slide */
+        .thank-you-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .thank-you-content {
+            text-align: center;
+            color: white;
+        }
+
+        .thank-you-content h1 {
+            font-size: 6rem;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .thank-you-content .group-info {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .thank-you-content .team-list {
+            font-size: 1.5rem;
+            line-height: 2;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            font-size: 1.5rem;
+            color: #667eea;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            transition: width 0.3s ease;
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            color: #667eea;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide-title { font-size: 2rem; }
+            .slide-text { font-size: 1rem; }
+            .challenges-grid { grid-template-columns: 1fr; }
+            .scenario-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 100%;"></div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="currentSlide">7</span> / <span id="totalSlides">7</span>
+    </div>
+
+    <div class="presentation-container" id="presentation">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide title-slide prev">
+            <h1><i class="fas fa-chart-line"></i> WealthWise<br>Financial Profile Assistant</h1>
+            <div class="subtitle">Group 7</div>
+            <div class="team-members">
+                <div class="team-member">
+                    <i class="fas fa-user"></i>
+                    <div>Harshit AGARWAL</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">A0315374E</div>
+                </div>
+                <div class="team-member">
+                    <i class="fas fa-user"></i>
+                    <div>Chitrarath BHATTACHARJEE</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">A0315514M</div>
+                </div>
+                <div class="team-member">
+                    <i class="fas fa-user"></i>
+                    <div>Jia Hui GAN</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">A0260540R</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Project Summary & Value Proposition -->
+        <div class="slide content-slide prev">
+            <div class="slide-content">
+                <h2 class="slide-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Project Summary &amp; Value Proposition
+                </h2>
+                <p class="slide-text">
+                    Financial institutions currently maintain massive reserves of customer transactional and profile data—millions of records overall—but this information remains <strong>inert</strong>. The critical objective is to activate this untapped resource to deliver proactive, personalized guidance directly at the point of customer interaction or sale.
+                </p>
+                <p class="slide-text">
+                    We are building a platform that uses <strong>real-time conversational data</strong> to synthesize customer financial attributes and deliver proactive, product guidance. This capability is paired with dynamic visual representations of the customer's financial health, empowering agents and customers to conduct comprehensive financial planning through instant, data-driven visualizations.
+                </p>
+                <p class="slide-text">
+                    This rich, real-time data is processed using analytical models to efficiently segment and understand customer needs, enabling us to automate insightful next-best-action recommendations and power agency training through conversation sentiment analysis.
+                </p>
+                <div class="highlight">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <strong>Privacy-First Architecture:</strong> The platform is designed with a robust, privacy-first architecture, ensuring all customer data and proprietary conversations remain entirely private and secured within the financial institution's environment.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Challenges -->
+        <div class="slide content-slide prev">
+            <div class="slide-content">
+                <h2 class="slide-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    What are the main challenges?
+                </h2>
+                <div class="challenges-grid">
+                    <div class="challenge-card">
+                        <i class="fas fa-file-alt challenge-icon"></i>
+                        <div class="challenge-title">Tedious Data Gathering</div>
+                        <div class="challenge-desc">
+                            Financial Advisor spend considerable time manually filling forms during customer meetings.
+                        </div>
+                    </div>
+                    <div class="challenge-card">
+                        <i class="fas fa-chart-area challenge-icon"></i>
+                        <div class="challenge-title">Lack of Contextual Forecasting</div>
+                        <div class="challenge-desc">
+                            Customers (D2C) and agents cannot visualize future financial changes (income, expenses, inflation rates) or life event impacts.
+                        </div>
+                    </div>
+                    <div class="challenge-card">
+                        <i class="fas fa-user-tie challenge-icon"></i>
+                        <div class="challenge-title">Inconsistent Agent Quality</div>
+                        <div class="challenge-desc">
+                            New Financial Advisors lack the deep, data-driven intuition of seasoned veterans. Advice quality is highly variable.
+                        </div>
+                    </div>
+                    <div class="challenge-card">
+                        <i class="fas fa-comments challenge-icon"></i>
+                        <div class="challenge-title">Conversation Blind Spots</div>
+                        <div class="challenge-desc">
+                            No effective mechanism to analyse sentiment or identify friction points during advisor-customer dialogue.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Scenario - Persona 1 (Chris) -->
+        <div class="slide content-slide prev">
+            <div class="slide-content">
+                <div class="persona-header">
+                    <i class="fas fa-user-circle persona-icon"></i>
+                    <div class="persona-info">
+                        <h2>Persona 1: Customer Chris</h2>
+                        <p><strong>Profile:</strong> 30, Single, First Job, Medium Savings, Low Financial Literacy</p>
+                        <p><i class="fas fa-flag"></i> <strong>Challenge:</strong> Chris knows he should save but struggles with the complex inputs required for planning (e.g., estimating long-term growth rates).</p>
+                    </div>
+                </div>
+
+                <div class="scenario-container">
+                    <div class="scenario-header">
+                        <i class="fas fa-chart-line"></i> Forecasting Input Scenario
+                    </div>
+                    <div class="scenario-row">
+                        <div class="scenario-box">
+                            <h3><i class="fas fa-question-circle"></i> Scenario</h3>
+                            <p>Chris asks, "Hey Advisor, I'm 30. How much do I need to save to retire comfortably to cover my expenses? I'm guessing 3% inflation and 5% return."</p>
+                        </div>
+                        <div class="scenario-box action">
+                            <h3><i class="fas fa-robot"></i> System Action</h3>
+                            <p><strong>AI Optimal Rate Suggestion:</strong> The system calculates the forecasted rates based on past historical data from trusted data sources. Optimal Inflation 2.5%, Optimal Return 7.2%.</p>
+                        </div>
+                        <div class="scenario-box outcome">
+                            <h3><i class="fas fa-check-circle"></i> Outcome</h3>
+                            <p><strong>Accurate Planning:</strong> Chris's financial plan is grounded in data, not guesswork. He avoids using a rate of return that is either too conservative or overly aggressive.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-header" style="margin-top: 20px;">
+                        <i class="fas fa-baby"></i> Life Event Impact Scenario
+                    </div>
+                    <div class="scenario-row">
+                        <div class="scenario-box">
+                            <h3><i class="fas fa-lightbulb"></i> Insight</h3>
+                            <p>Chris asks, "But I am planning for a child next year. What happens then?"</p>
+                        </div>
+                        <div class="scenario-box action">
+                            <h3><i class="fas fa-project-diagram"></i> System Action</h3>
+                            <p>Clustering Model analyses "Married, Age 30-35" peers, factoring in Life Event data (e.g., typical child expense bump).</p>
+                        </div>
+                        <div class="scenario-box outcome">
+                            <h3><i class="fas fa-chart-area"></i> Contextual Foresight</h3>
+                            <p>The system plots a new trajectory showing a 12% expense increase from Year 1 till Year 21, creating a visible "Gap" on the financial graph.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-header" style="margin-top: 20px;">
+                        <i class="fas fa-bullseye"></i> Product Recommendation Scenario
+                    </div>
+                    <div class="scenario-row">
+                        <div class="scenario-box">
+                            <h3><i class="fas fa-question"></i> Recommendation</h3>
+                            <p>Chris asks, "What's the best way to fill that gap?"</p>
+                        </div>
+                        <div class="scenario-box action">
+                            <h3><i class="fas fa-filter"></i> System Action</h3>
+                            <p>Two-Tower Recommender filters products based on his Need (Retirement) and Cluster (Young, high-risk tolerance).</p>
+                        </div>
+                        <div class="scenario-box outcome">
+                            <h3><i class="fas fa-star"></i> Personalized Action</h3>
+                            <p>System recommends the Annuity with a high-growth projection, explaining the required monthly contribution of $500 to close the gap.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Scenario - Persona 2 (Amanda) -->
+        <div class="slide content-slide prev">
+            <div class="slide-content">
+                <div class="persona-header">
+                    <i class="fas fa-user-tie persona-icon"></i>
+                    <div class="persona-info">
+                        <h2>Persona 2: Financial Advisor Amanda</h2>
+                        <p><strong>Experience:</strong> 6 months</p>
+                        <p><strong>Customer:</strong> Ms. Lee (Mid-40s, Married, Two Children, Good Income, High Mortgage)</p>
+                        <p><i class="fas fa-flag"></i> <strong>Challenge:</strong> Alex struggles to remember all product details and risks missing a critical need.</p>
+                    </div>
+                </div>
+
+                <div class="scenario-container">
+                    <div class="scenario-header">
+                        <i class="fas fa-file-alt"></i> Fact Find Scenario
+                    </div>
+                    <div class="scenario-row">
+                        <div class="scenario-box">
+                            <h3><i class="fas fa-microphone"></i> Fact Find</h3>
+                            <p>Ms. Lee mentions she feels "worried about paying off the house if something happens."</p>
+                        </div>
+                        <div class="scenario-box action">
+                            <h3><i class="fas fa-brain"></i> System Action</h3>
+                            <p>Real-time transcription captures the liability. The LLM extracts the Protection gap: Mortgage.</p>
+                        </div>
+                        <div class="scenario-box outcome">
+                            <h3><i class="fas fa-check"></i> Outcome</h3>
+                            <p>Amanda can focus on discussion and nurturing the lead rather than manual data entry. Finally the data can be reviewed with customer.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-header" style="margin-top: 20px;">
+                        <i class="fas fa-gift"></i> Product Recommendation Scenario
+                    </div>
+                    <div class="scenario-row">
+                        <div class="scenario-box">
+                            <h3><i class="fas fa-handshake"></i> Recommendation</h3>
+                            <p>Amanda initially planned to sell a generic Term Life policy.</p>
+                        </div>
+                        <div class="scenario-box action">
+                            <h3><i class="fas fa-magic"></i> System Action</h3>
+                            <p>Recommendation Engine suggests 'Mortgage Safeguard' (Liability-based Term Life) citing Ms. Lee's high mortgage liability.</p>
+                        </div>
+                        <div class="scenario-box outcome">
+                            <h3><i class="fas fa-thumbs-up"></i> Outcome</h3>
+                            <p>Amanda gives targeted, relevant advice, increasing Ms. Lee's trust and increasing sales probability.</p>
+                        </div>
+                    </div>
+
+                    <div class="scenario-header" style="margin-top: 20px;">
+                        <i class="fas fa-graduation-cap"></i> Post-Call Analysis (Learning)
+                    </div>
+                    <div class="scenario-row">
+                        <div class="scenario-box">
+                            <h3><i class="fas fa-chart-pie"></i> Review</h3>
+                            <p>Amanda reviews her conversation summary later.</p>
+                        </div>
+                        <div class="scenario-box action">
+                            <h3><i class="fas fa-smile"></i> Sentiment Report</h3>
+                            <p>Sentiment Report highlights: Customer sentiment was negative immediately after Amanda asked personal questions on medical history.</p>
+                        </div>
+                        <div class="scenario-box outcome">
+                            <h3><i class="fas fa-lightbulb"></i> Learning Outcome</h3>
+                            <p>Amanda learns precisely when and why the sales momentum stalled, allowing her to practice similar situation better.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Project Objectives -->
+        <div class="slide content-slide prev">
+            <div class="slide-content">
+                <h2 class="slide-title">
+                    <i class="fas fa-bullseye"></i>
+                    Project Objectives
+                </h2>
+                <table class="objectives-table">
+                    <thead>
+                        <tr>
+                            <th>Strategic Objective</th>
+                            <th>AI Solution Component</th>
+                            <th>Business Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-users objective-icon"></i>Data Analysis &amp; Segmentation</td>
+                            <td>Clustering Engine: Segment the entire customer base into distinct financial cohorts.</td>
+                            <td>Informs Product Strategy: Understand which segments to target, identify unmet needs, and design profitable new products tailored to specific cohorts, driving strategic investment decisions.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-microphone-alt objective-icon"></i>Speech Diarization, Transcript and Fact Find</td>
+                            <td>End-to-End Automation Pipeline: Converts unstructured audio data (conversation) directly into structured financial data (fact-find).</td>
+                            <td>Increases Sales Conversion by focusing agent time on advice, not data entry, and providing instant, accurate product suggestions.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-crystal-ball objective-icon"></i>Predictive Foresight</td>
+                            <td>AI Forecasting &amp; Simulation: Predict future saving/expense rates and model the financial impact of life events.</td>
+                            <td>Proactive Needs Identification: Provides agents and customers with AI-suggested optimal rates for accurate forecasting and highlights future shortfalls years in advance.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-gift objective-icon"></i>Personalized Recommendation</td>
+                            <td>Recommendation System: Generates product suggestions based on two factors: 1) Customer Segment (what similar customers buy) and 2) Needs Analysis (goals/protection needs).</td>
+                            <td>Targeted Sales: Ensures every recommendation maximizes customer value and addresses specific shortfalls identified by the AI.</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-graduation-cap objective-icon"></i>Agent Training &amp; Quality</td>
+                            <td>Post-Call Conversational Analytics (Sentiment, Friction Points): Provides objective, data-backed reports on agent-customer interactions after the call.</td>
+                            <td>Scalable Training: Allows the institution to train new agents faster and more effectively by targeting specific skill gaps (e.g., handling price objections) identified by the AI.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 7: Thank You -->
+        <div class="slide thank-you-slide active">
+            <div class="thank-you-content">
+                <h1><i class="fas fa-heart"></i> Thank You!</h1>
+                <div class="group-info">
+                    <i class="fas fa-users"></i> Group 7
+                </div>
+                <div class="team-list">
+                    <div style="margin: 15px 0;">
+                        <i class="fas fa-user-circle"></i> Harshit AGARWAL (A0315374E)
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <i class="fas fa-user-circle"></i> Chitrarath BHATTACHARJEE (A0315514M)
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <i class="fas fa-user-circle"></i> Jia Hui GAN (A0260540R)
+                    </div>
+                </div>
+                <div style="margin-top: 50px; font-size: 3rem;">
+                    <i class="fas fa-envelope"></i>
+                    <i class="fas fa-globe" style="margin-left: 30px;"></i>
+                    <i class="fas fa-phone" style="margin-left: 30px;"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)" disabled="">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlideIndex) {
+                    slide.classList.add('active');
+                } else if (index < currentSlideIndex) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            // Update progress bar
+            const progress = ((currentSlideIndex + 1) / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+
+            // Update counter
+            document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentSlideIndex === 0;
+            document.getElementById('nextBtn').disabled = currentSlideIndex === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex < 0) currentSlideIndex = 0;
+            if (currentSlideIndex >= totalSlides) currentSlideIndex = totalSlides - 1;
+            updateSlide();
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlideIndex = 0;
+                updateSlide();
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlideIndex = totalSlides - 1;
+                updateSlide();
+            }
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) changeSlide(1);
+            if (touchEndX > touchStartX + 50) changeSlide(-1);
+        }
+
+        // Initialize
+        updateSlide();
+    </script>
+
+</body></html>

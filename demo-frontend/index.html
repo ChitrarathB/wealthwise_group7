@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WealthWise — Financial Profile Voice Agent (DEMO)</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="brand">
+                <div class="logo">W</div>
+                <div class="brand-text">
+                    <h1>WealthWise</h1>
+                    <span>Financial Profile Assistant</span>
+                </div>
+            </div>
+            <div class="header-status">
+                <div class="status-pill" id="status_badge">Profile Complete ✅</div>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <div class="sidebar">
+                <div class="progress-section">
+                    <h3>Profile Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress_fill" style="width: 100%"></div>
+                    </div>
+                    <span class="progress-text" id="progress_text">Complete (12/12)</span>
+                </div>
+
+                <div class="profile-summary">
+                    <h3>Customer Profile</h3>
+                    <div class="profile-grid">
+                        <div class="profile-item">
+                            <span class="label">Name:</span>
+                            <span class="value" id="customer_name">Sarah Chen</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="label">Age:</span>
+                            <span class="value" id="customer_age">34</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="label">Marital Status:</span>
+                            <span class="value" id="marital_status">Married</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="label">Household Size:</span>
+                            <span class="value" id="household_size">4</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="label">Dependents:</span>
+                            <span class="value" id="dependents">2 children</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="label">Housing:</span>
+                            <span class="value" id="housing_type">4-room HDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="financial-summary">
+                    <h3>Financial Overview</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item positive">
+                            <div class="summary-value">$8,500</div>
+                            <div class="summary-label">Monthly Income</div>
+                        </div>
+                        <div class="summary-item neutral">
+                            <div class="summary-value">$5,200</div>
+                            <div class="summary-label">Monthly Expenses</div>
+                        </div>
+                        <div class="summary-item positive">
+                            <div class="summary-value">$85,000</div>
+                            <div class="summary-label">Total Savings</div>
+                        </div>
+                        <div class="summary-item negative">
+                            <div class="summary-value">$320,000</div>
+                            <div class="summary-label">HDB Loan</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:12px;">
+                        <button id="send_to_categorizer" class="primary">Send to Categorizer</button>
+                    </div>
+                    <div id="categorizer_result" style="margin-top:12px; background:#fff; color:#111; padding:10px; border-radius:6px; display:none;"></div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="profile">Profile Builder</button>
+                    <button class="tab-button" data-tab="analysis">Analysis</button>
+                    <button class="tab-button" data-tab="scenarios">Scenarios</button>
+                    <button class="tab-button" data-tab="plans">Plans</button>
+                </div>
+
+                <div class="tab-content active" id="profile-content">
+                    <div class="chat-container">
+                        <div class="messages" id="messages">
+                            <!-- Messages will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="analysis-content">
+                    <div class="analysis-header">
+                        <h2>Financial Analysis & Projections</h2>
+                        <p>Based on your current financial profile, here's your comprehensive 30-year financial journey</p>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <canvas id="netWorthChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <canvas id="incomeExpenseChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <canvas id="savingsChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <canvas id="insuranceChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-insights">
+                        <h3>Key Financial Insights</h3>
+                        <div class="insight-list" id="analysis_insights">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="scenarios-content">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <div class="tab-content" id="plans-content">
+                    <div class="plans-header">
+                        <h2>Recommended Financial Plans</h2>
+                        <p>Based on your profile and scenarios, here are tailored recommendations</p>
+                    </div>
+                    <div class="plans-grid" id="plans_grid">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

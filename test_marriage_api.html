@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Marriage API</title>
+</head>
+<body>
+    <h1>Test Marriage Expense Prediction</h1>
+    <button onclick="testMarriageAPI()">Test Marriage API</button>
+    <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;"></div>
+
+    <script>
+        async function testMarriageAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const payload = {
+                    customer_data: {
+                        "Customer_ID": "SARAH_001",
+                        "Personal Details": {
+                            "Age": 29,
+                            "Gender": "Female",
+                            "Marital Status": "Single"
+                        },
+                        "Financial Details": {
+                            "Derived": {
+                                "Active_Income_Annual": 90000,
+                                "Total_Annual_Income": 100800,
+                                "Total_Annual_Expense": 54000
+                            }
+                        }
+                    },
+                    event_type: 'Marriage'
+                };
+                
+                console.log('Sending payload:', JSON.stringify(payload, null, 2));
+                
+                const response = await fetch('http://localhost:9000/api/predict-expense', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Response data:', data);
+                
+                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `<strong>Error:</strong> ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

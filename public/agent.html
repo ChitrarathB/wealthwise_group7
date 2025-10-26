@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WealthWise — Agent Dashboard</title>
+	<link rel="stylesheet" href="/styles.css" />
+	<style>
+		.agent-header {
+			background: linear-gradient(135deg, #f59e0b, #f97316);
+			color: white;
+			padding: 20px 32px;
+			border-bottom: 3px solid #ea580c;
+		}
+		.recording-controls {
+			text-align: center;
+			padding: 40px 20px;
+		}
+		.record-btn-large {
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, #ef4444, #dc2626);
+			border: 6px solid white;
+			color: white;
+			font-size: 48px;
+			cursor: pointer;
+			box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 24px;
+		}
+		.record-btn-large:hover:not(:disabled) {
+			transform: scale(1.05);
+			box-shadow: 0 15px 40px rgba(239, 68, 68, 0.5);
+		}
+		.record-btn-large.recording {
+			background: linear-gradient(135deg, #dc2626, #991b1b);
+			animation: recordingPulse 1.5s ease-in-out infinite;
+		}
+		.record-btn-large:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+		@keyframes recordingPulse {
+			0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+			50% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+		}
+		.agent-card {
+			background: white;
+			border-radius: 16px;
+			padding: 32px;
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+			max-width: 1400px;
+			margin: 32px auto;
+		}
+		.agent-tabs {
+			display: none; /* Hidden until profile is created */
+			margin-top: 32px;
+		}
+		.agent-tabs.show {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="progress"><div id="progressBar" class="bar" style="width: 0%"></div></div>
+	
+	<div class="app">
+		<header class="agent-header">
+			<div style="display: flex; align-items: center; justify-content: space-between;">
+				<div style="display: flex; align-items: center; gap: 14px;">
+					<div style="width: 44px; height: 44px; border-radius: 12px; background: white; display: flex; align-items: center; justify-content: center; color: #f59e0b; font-weight: 800; font-size: 20px;">
+						A
+					</div>
+					<div>
+						<h1 style="margin: 0; font-size: 22px;">WealthWise Agent Dashboard</h1>
+						<span style="opacity: 0.9; font-size: 13px;">Professional Financial Analysis Tool</span>
+					</div>
+				</div>
+				<div style="display: flex; gap: 12px; align-items: center;">
+					<div id="status_badge" class="status-pill" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">
+						Ready
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div class="agent-card">
+			<!-- Recording Section -->
+			<div id="recordingSection">
+				<div class="recording-controls">
+					<h2 style="margin: 0 0 12px 0; font-size: 24px; color: #0f172a;">Client Conversation Recorder</h2>
+					<p style="margin: 0 0 32px 0; color: #64748b; font-size: 15px;">
+						Record your conversation with the client. AI will automatically extract all profile information.
+					</p>
+					
+					<button id="recordBtn" class="record-btn-large">
+						🎙️
+					</button>
+					
+					<div id="recordStatus" style="font-size: 18px; font-weight: 600; color: #64748b; margin-bottom: 12px;">
+						Ready to Record
+					</div>
+					<div id="recordTimer" style="font-size: 14px; color: #94a3b8;">
+						0:00
+					</div>
+					
+					<!-- Test Demo Button -->
+					<div style="margin-top: 32px; padding-top: 32px; border-top: 2px solid #e2e8f0;">
+						<button id="testDemoBtn" style="
+							background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+							color: white;
+							border: none;
+							padding: 12px 32px;
+							border-radius: 10px;
+							font-weight: 600;
+							cursor: pointer;
+							font-size: 14px;
+							box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+							transition: all 0.2s ease;
+						">
+							🧪 Test with Sample Conversation
+						</button>
+						<p style="margin: 12px 0 0 0; color: #94a3b8; font-size: 13px;">
+							Instantly test with a pre-recorded conversation
+						</p>
+					</div>
+				</div>
+
+				<div id="transcriptSection" style="display: none; margin-top: 32px; padding-top: 32px; border-top: 2px solid #e2e8f0;">
+					<h3 style="margin: 0 0 16px 0; font-size: 18px; color: #0f172a;">📝 Conversation Transcript</h3>
+					<div id="transcript" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.8; max-height: 300px; overflow-y: auto; color: #475569;">
+					</div>
+				</div>
+
+				<div id="profileSection" style="display: none; margin-top: 32px;">
+					<div style="background: linear-gradient(135deg, #d1fae5, #a7f3d0); border: 1px solid #10b981; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+						<div style="font-size: 28px; margin-bottom: 8px;">✅</div>
+						<h3 style="margin: 0 0 8px 0; font-size: 18px; color: #065f46;">Profile Created Successfully!</h3>
+						<p style="margin: 0; color: #047857; font-size: 14px;">AI extracted <span id="fieldCount">0</span> fields. Click below to view analysis.</p>
+					</div>
+					
+					<div id="extractedProfile" style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px;">
+						<h4 style="margin: 0 0 16px 0; font-size: 16px; color: #0f172a;">Extracted Profile Data:</h4>
+						<div id="profileData" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+						</div>
+					</div>
+					
+					<div style="margin-top: 20px; text-align: center;">
+						<button id="viewAnalysisBtn" style="
+							background: linear-gradient(135deg, #3b82f6, #60a5fa);
+							color: white;
+							border: none;
+							padding: 14px 32px;
+							border-radius: 12px;
+							font-weight: 600;
+							cursor: pointer;
+							font-size: 15px;
+							box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+							transition: all 0.2s ease;
+						">
+							📊 View Client Analysis & Scenarios →
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Analysis & Scenarios Section (Hidden initially) -->
+			<div id="analysisSection" class="agent-tabs">
+				<div style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #3b82f6; border-radius: 12px; padding: 16px; margin-bottom: 24px;">
+					<div style="display: flex; align-items: center; justify-content: space-between;">
+						<div style="flex: 1;">
+							<div style="font-weight: 600; color: #1e40af; font-size: 16px;">Client Financial Analysis</div>
+							<div style="font-size: 13px; color: #1d4ed8; margin-top: 4px;">Complete projections and scenario planning ready to present</div>
+						</div>
+						<button id="newClientBtn" style="
+							background: white;
+							color: #3b82f6;
+							border: 2px solid #3b82f6;
+							padding: 8px 16px;
+							border-radius: 8px;
+							font-weight: 600;
+							cursor: pointer;
+							font-size: 13px;
+							transition: all 0.2s ease;
+						">
+							🔄 New Client
+						</button>
+					</div>
+				</div>
+
+				<!-- Tabs -->
+				<div class="tabs-header" style="margin-bottom: 24px;">
+					<button class="tab-btn active" data-tab="agent-analysis">📊 Analysis</button>
+					<button class="tab-btn" data-tab="agent-scenarios">🎯 Scenarios</button>
+				</div>
+
+				<!-- Analysis Tab Content -->
+				<div id="agent-analysis-tab" class="tab-content active">
+					<div id="agent-analysis-content"></div>
+				</div>
+
+				<!-- Scenarios Tab Content -->
+				<div id="agent-scenarios-tab" class="tab-content" style="display: none;">
+					<div id="agent-scenarios-content"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="toasts" class="toasts"></div>
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="/agent.js"></script>
+</body>
+</html>
